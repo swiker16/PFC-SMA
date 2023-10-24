@@ -23,7 +23,7 @@ pipeline {
                 sh 'composer install' // Si usas Composer para gestionar las dependencias
 
                 // Realiza la construcción de tu proyecto PHP
-                sh 'php -l your_php_file.php' // Ejemplo de comando de construcción
+                sh 'php -l index.php' // Ejemplo de comando de construcción
             }
         }
 
