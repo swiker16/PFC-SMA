@@ -1,4 +1,4 @@
-= Darwin Spring Boot passbook-get Microservice
+= Sistema de Gestion de Reservas de Cine
 :doctype: book
 :toc:
 :toclevels: 4
@@ -18,29 +18,17 @@ endif::[]
 
 === Description
 
-Microservice passbook-get generated from the Maven archetype for Darwin Spring Boot applications.
-The microservice passbook-get implements an application of type  Servlet, which exposes a handler, and basic endpoints to process GET requests.
+Este proyecto es un sistema de gestion de reserva que te permite comprar la entrada de forma online sin esperas y sin cola.
   
-The microservice passbook-get, makes use of Darwin Spring Boot Starter Parent, so there is no need to worry about the version of the libraries it makes use of, or to provide a list of all available dependencies.
 
-NOTE: For more information on how to generate a microservice from the Darwin archetype, please refer to the following link: link:https://github.alm.europe.cloudcenter.corp/pages/sanes-darwin-backend/darwin-spring-boot/darwin-archetypes/darwin-spring-boot-archetype-microservice/index.html[Darwin Spring Boot Archetype Microservice].
 
-=== Dependency management
+=== Instalacion
 
-The microservice passbook-get makes use of the following Maven dependencies:
+1. Deberemos de Instalar XAMPP.
 
-* link:https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_client[Spring Cloud Config Client]
-* link:https://docs.spring.io/spring-framework/docs/current/reference/html/web.html[Spring Web MVC]
-* link:https://springdoc.org/[Springdoc-OpenAPI (Swagger)]
- * link:https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html[Spring Boot Actuator]
-* Spring HTTP Clients: link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-poc/darwin-samples/tree/develop/webclient[RestTemplate y WebClient]
+Lo podemos encontrar en la siguiente url.
 
-* Framework Darwin Spring Boot:
-- link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-backend/darwin-spring-boot/blob/develop/darwin-project/darwin-spring-boot-core/README.adoc[Darwin Core]
-- link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-backend/darwin-spring-boot/blob/develop/darwin-project/darwin-spring-boot-cache/README.adoc[Darwin Cache]
-- link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-backend/darwin-spring-boot/blob/develop/darwin-project/darwin-spring-boot-omnichannel/README.adoc[Darwin Omnichannel]
-- link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-backend/darwin-spring-boot/blob/develop/darwin-project/darwin-spring-boot-logging/README.adoc[Darwin Logging]
-- link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-backend/darwin-spring-boot/blob/develop/darwin-project/darwin-spring-boot-security-authentication/README.adoc[Darwin Authentication]
+https://www.apachefriends.org/download.html
 
 == Project structure
 
