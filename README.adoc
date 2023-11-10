@@ -28,325 +28,69 @@ Este proyecto es un sistema de gestion de reserva que te permite comprar la entr
 
 Lo podemos encontrar en la siguiente url.
 
+----
 https://www.apachefriends.org/download.html
+----
+
+2. Tenemos que instalar la herramienta composer para el PHPUnit.
+
+----
+https://getcomposer.org/download/
+----
+
+3. Una vez instalado en la carpeta que tengamos xampp vamos a htdocs, borramos lo de adentro y clonamos el proyecto.
+4. Una vez clonado en la terminal dentro de proyecto escribimos este comando para descargar las dependencias del PHPUnit.
+
+----
+composer require --dev phpunit/phpunit 
+----
+
+Ya tendriamos descargado el PHPUnit y para ejecutar los tests seria lo siguiente:
+
+----
+./vendor/bin/phpunit OperationsTest.php
+----
 
 == Project structure
 
 The microservice passbook-get has the following structure:
 
 ----
-├── mvnw
-├── mvnw.cmd
-├── pom.xml
-└── src
-    ├── main
-    │   ├── java
-    │   │   └── com
-    │   │       └── santander
-    │   │           └── darwin
-    │   │               └──  passbook-get
-    │   │                   ├── Application.java
-    │   │                   ├── config
-    │   │                   |   └── SwaggerConfig.java
-    │   │                   └── web
-    │   │                       └── HelloController.java
-    │   └── resources
-    │       ├── banner.txt
-    │       ├── errors.properties
-    │       ├── config
-    │       │   ├── application.yml
-    |       │   ├── application-local.properties
-    │       └── errors
-    │           └── Resource Bundle 'errors
-    |               ├── errors_en_US.properties
-    │               └── errors_es_ES.properties
-    └── test
-        └── java
-            └── com
-                └── santander
-                    └── darwin
-                        └──  passbook-get
-                            ├── ApplicationTest.java
-                            ├── config
-                            |   └── SwaggerConfigTest.java
-                            └── web
-                                └── HelloControllerTest.java
-----
-
-The `src/main/java` folder includes :
-
-* An *Application.java* class to start the application using the appropriate `WebApplicationType`.
-* A `config` package with a *SwaggerConfig.java* class that implements a configuration for using the OpenApi documentation in a microservice.
-* A `web` package with a *HelloController.java* class that implements a controller.
- (`Servlet`)   which returns `Hello World!' when an HTTP GET request is made to the endpoint _/passbook-get/hello_.
-
-  
-In addition, the microservice has:
- * An *errors.properties* file for the link:https://github.alm.europe.cloudcenter.corp/pages/sanes-darwin-backend/darwin-spring-boot/darwin-project/darwin-spring-boot-core/index.html#excepciones[configuration of exceptions], and a subfolder errors with a Resource Bundle of configurations, for multi-language exceptions (in this case: Spanish (es_ES) and US English (en_US)).
-
-* An *application.yml* file together with an *application-local.properties* file with the <<Configuration files,properties>>.
-necessary to configure the libraries that have been chosen during the creation of the project.
-
-* An *ApplicationTests.java* to test that the functionality of the application works correctly. Además de los correspondientes test para estas clases: *SwaggerConfigTest.java* y *HelloControllerTest.java*.
-
-* The *pom.xml* file, which contains all the information that Maven uses to manage dependencies, metadata, etc.
-
-== Configuration files
-
-The project has a number of property files to configure what is needed in relation to the libraries used:
-
-=== _application.yml_[[application.yml]]
-
-Main configuration file of the environment-independent application.
-In this file, properties related to the architecture components and those of the application itself are configured.
-
-This file contains the following properties of architecture components:
-
-[width="100%",cols=5*,options="header"]
-|============================
-| Property| Description| Required| Value| Environment
-| *darwin.app-key* | Indicates the application key.
-Within the monitoring system it will be part of the index name. | Yes | _acronym-app_ | Any
-| *darwin.logging.system* | Value received from ATLAS with the name of the system to which the microservice belongs. | Yes | SYSTEM | Any
-| *darwin.logging.subsystem* | Value received from ATLAS with the name of the subsystem the microservice belongs too. | Yes | SUBSYSTEM | Any
-| *darwin.logging.application* | Value received from ATLAS with the name of the application the microservice belongs to. | Yes | APP_CODE | Any
-| *darwin.logging.subapplication* | Value received from ATLAS with the name of the sub-application the microservice belongs to. | Yes |  SUBAPP_CODE | Any
-| *darwin.logging.paas-app-version* | Artifact version.
-To have it automatically populated when generating the artefact, we must indicate "@project.version@" as the value and tell Maven to process the resources so that it replaces the string with the corresponding value. | Yes | @project.version@ | Any
-| *darwin.logging.kafka.server* | Path to the Kafka server to which the functional and security traces will be sent, must be in the format host:port. | Yes |  ${env.logging-server} | Any
-| *darwin.security.connectors.pkm-connector.pkm-endpoint* | Public key manager endpoint | Yes | ${env.pkm-endpoint} | Any | *spring.session.store-type* | Determines where Spring Session Saving is implemented.
-Defaults to the classPath if only one module is present there.
-Set to none, disables Spring Session.| Yes | none | Any
-| *spring.cache.type* | Configure the type of cache. | Yes | caffeine | Any
-| *spring.cache.caffeine.spec* | Cache settings. | Yes | expireAfterWrite=10m | Any
-| *logging.level.com.santander.myapp.passbookget* | Configure the level of detail of the logs in com.santander.myapp.passbookget | Yes | INFO | Any
-| *logging.level.root* | Configure the level of detail of the logs at root level. | Yes | ERROR | Any | *management.endpoint.health.show-details* | Determines to whom the -health endpoint details are shown.
-Configured 'when-authorized' only shows the details to authorized users, which can be configured by using the _management.endpoint.health.roles_.  | Yes | ALWAYS | Any | *health.config.enabled* | Enable the health indicator. | Yes | false | Any | *springdoc.swagger-ui.
-disable-swagger-default-url* | Disable the default openApi url, so that the documentation can only be accessed via the custom path. | Yes | true | Any
-| *springdoc.swagger-ui.path* | Customize the Swagger documentation path in HTML format. | Yes | /swagger-ui.html | Any   | *server.forward-headers-strategy* | Manages the use of proxy variables. | Yes | framework | Any
-| *server.shutdown* | Shutdown mode for embedded web servers (Tomcat, Jetty, Undertow and Netty), on both servlet and reactive platforms.  | No | graceful | Any
-| *spring.lifecycle.timeout-per-shutdown-phase* | Active request shutdown grace time, if this property is not defined, a default value of 30 seconds will be applied. | No | 2m | Any  
-|============================
-
-Among others, this file allows the definition of properties to be able to identify the application and the configuration of the *Spring Configuration Service client*.
-By default, it points to the boae region and the active profile is the local one.
+project_name/           # Directorio raíz del proyecto
+├── assets/             # Recursos estáticos como CSS, JavaScript, imágenes
+│   ├── css/            # Archivos CSS
+│   ├── js/             # Archivos JavaScript
+│   ├── img/            # Imágenes
+│
+├── includes/           # Archivos PHP reutilizables y funciones
+│   ├── config.php      # Archivo de configuración
+│   ├── db.php          # Conexión a la base de datos
+│   ├── functions.php   # Funciones auxiliares
+│
+├── templates/          # Plantillas de vistas
+│   ├── header.php      # Encabezado HTML
+│   ├── footer.php      # Pie de página HTML
+│
+├── views/              # Páginas específicas del sitio
+│   ├── home.php        # Página de inicio
+│   ├── products.php    # Página de productos
+│   ├── contact.php     # Página de contacto
+│
+├── models/             # Clases y scripts para interactuar con la base de datos
+│   ├── user.php        # Modelo de usuario
+│   ├── product.php     # Modelo de producto
+│
+├── controllers/        # Controladores para gestionar las solicitudes
+│   ├── homeController.php    # Controlador de la página de inicio
+│   ├── productController.php # Controlador de productos
+│
+├── vendor/             # Dependencias de terceros (si se utilizan)
+│
+├── .htaccess           # Archivo de configuración de Apache (para URL amigables)
+├── index.php           # Página de inicio del sitio
+├── about.php           # Ejemplo de una página adicional
+├── contact.php         # Ejemplo de una página adicional
+├── .gitignore          # Archivo para ignorar archivos/directorios en Git
 
 ----
-darwin:
-  region: boae
-  suffix:
-...
 
-spring:
-  application:
-    name: application-1
-  profiles:
-    active: local
-  ...
-  config:
-    import: "optional:configserver:"
-  cloud:
-    config:
-      uri: http://configuration-service${darwin.suffix}:8080/
-...
-----
-
-=== _application-local.properties_
-
-Auxiliary file with properties associated with the environment (in this case for a local environment).
-It has the PKM and STS properties of the security library and the property to define the kafka server with which to connect the logging library, which is empty by default.
-  In case of working on another profile, it will be necessary to create another properties file for the particular profile.
-
-
-== Spring Actuator: Liveness and Readiness.
-
-Spring's actuators provide a set of HTTP/JMX endpoints that expose operational information about our microservice.
-Darwin makes use of the '/actuator/health/liveness' and '/actuator/health/readiness' actuator endpoints to manage the Liveness and Readiness probes of a microservice.
-
-- Liveness probe -> Provides information that lets us know if the microservice is alive or dead.
-- Readiness probe -> Provides information that lets us know if the microservice is ready to receive traffic.
-
-These endpoints, by default, will only be enabled when the execution environment is detected to be Kubernetes as they are the endpoints we will use to define the health checks of the container.
-
-- Liveness health checks -> Kubernetes uses this health check to know if the application is alive or dead.
-So if the application is alive Kubernetes does nothing but if it is dead it deletes the Pod and starts a new one to replace it.
-- Readiness health checks -> Kubernetes uses this health check to know if the microservice is ready to receive traffic.
-Kubernetes makes sure that the microservice is ready to receive requests before the pod accepts them.
-If the healthcheck starts to fail, Kubernetes stops routing requests to the pod until the microservice is in a state that allows it to receive them.
-
-In the <<application.yml,_application.yml_>> file , the properties that are applied by default are:
-
-[source,yaml]
-----
-management:
-  health:
-    defaults.enabled: true
-    livenessState.enabled: true
-    readinessState.enabled: true
-----
-
-NOTE: *Does not need to be explicitly added* in the file of the microservice.
-
-If you want to use the endpoints in a local environment, Spring provides the property *_management.health.probes.enabled_* that you have to add to the _application.yml_ file.
-
-An example of call and response of the liveness probe, would be the following.
-Using the endpoint 'http://localhost:8080/actuator/health/liveness' we would get a response indicating the internal status of the application.
-When the status is OK, we get a response with HTTP=200 code and content:
-
-[source,console]
-----
-// HTTP/1.1 200 OK
-
-{
-  "status": "UP",
-  "components": {
-    "livenessProbe": {
-      "status": "UP"
-    }
-  }
-}
-----
-
-Similarly, to obtain the readiness probe, we use the endpoint 'http://localhost:8080/actuator/health/readiness'.
-In this case we show an example that indicates that the application is not ready to receive requests:
-
-[source,console]
-----
-// HTTP/1.1 503 SERVICE UNAVAILABLE
-
-{
-  "status": "OUT_OF_SERVICE",
-  "components": {
-    "readinessProbe": {
-      "status": "OUT_OF_SERVICE"
-    }
-  }
-}
-----
-
-For more information on Liveness and Readiness, please refer to the following entries: link:https://spring.io/blog/2020/03/25/liveness-and-readiness-probes-with-spring-boot[Spring Liveness and Readiness Probes] y link:https://sanes.atlassian.net/wiki/spaces/SANACLOUD/pages/16546334525/Health+Check[Health Check Microservices Java]
-
-== Execution of the application
-
-To execute our microservice we go to the `Application` class, where the main method is located.
-
-[source,java]
-----
-@SpringBootApplication
-@EnableCaching
-@Slf4j
-public class Application {
-
-	public static void main(String[] args) {
-		new SpringApplicationBuilder(Application.class)
-			.web(WebApplicationType.SERVLET)
-			.run(args);
-	}
-----
-
-This class has the tags:
-
-* `@SpringBootApplication` which indicates that it is a Spring boot application and causes it to activate.
-the Scan component and the autoconfigurations.
-* `@EnableCaching` which enables the use of the cache in the application, managed by the darwin-spring-boot-cache library.
-* `@Slf4j` generates a logger, and then the darwin-spring-boot-logging library connects to it.
-
-To run the application, we go to the project directory and execute the following command:
-
-[source,bash]
-----
-mvn spring-boot:run
-----
-
-When you run it, you will see the following log:
-
-
-[source,console]
-
-----
-:: Spring Boot  (v2.6.2.RELEASE) ::                                                                  :: DARWIN (v3.0.0-RELEASE) ::
-
-2021-07-08 12:59:08.558  INFO 3836 --- [           main] e.s.m.a.Application                      : The following profiles are active: local
-2021-07-08 12:59:26.590  INFO 3836 --- [           main] e.s.m.a.Application                      : Started Application in 22.826 seconds (JVM running for 24.724)
-----
-
-and the application would be up.
-
-The microservice has a controller, which is the highest level layer for exposing our REST microservice.
-This is defined in the `HelloControler` class.
-To call the controller we use the `/passbook-get/hello` endpoint indicated in the `@RequestMapping` tag.
-
-By executing the following command:
-[source,bash]
-----
-curl -X GET "http://localhost:8080/passbook-get/hello"
-----
-
-We will get a response like this:
-[source,console]
-----
-Hello world!
-----
-
-Or an incorrect one in case of no authorization.
-
-[source,json]
-----
-{
-    "timeStamp": "2020-07-08T11:08:05.577+00:00",
-    "appName": "aplicacion-2",
-    "status": 401,
-    "errorName": "Unauthorized",
-    "internalCode": 401,
-    "shortMessage": "Unauthorized",
-    "detailedMessage": "Not Authenticated",
-    "mapExtendedMessage": {}
-}
-----
-
-
-== Testing the application
-
-The passbook-get microvice has a series of tests included in the src/main/test folder:
-
-* *ApplicationTests* : Checks that the Spring context, is loaded correctly.
-
-
-* *SwaggerConfigTests* : Tests that the application has the correct OpenApi configuration.
-
-* *HelloControllerTests* : Tests the controller, verifying that the result obtained after a call to the endpoint is correct.
-
-To test the application, from the project directory, run the following command in the terminal:
-
-[source,bash]
-----
-λ mvn clean test
-----
-
-The following result was obtained:
-
-[source,console]
-----
-[INFO] Results:
-[INFO]
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
-[INFO]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-----
-
-== Documenting the application's REST APIs
-
-The microservice exposes a swagger interface with the documented API.
-
-The API documentation in Swagger format, is exposed through the url: http://localhost:8080/swagger-ui.html
-
-On the other hand, to consult the API documentation in yml format, access the endpoint: http://localhost:8080/v3/api-docs
-
-NOTE: For more information about the OpenApi documentation, see the following link: link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-poc/darwin-samples/tree/develop/openapi-springdoc[API documentation with Springdoc].
-
-
-== Support
-
-In case you detect any issue associated with the Darwin framework, please open an issue through the support channel: link:https://github.alm.europe.cloudcenter.corp/sanes-darwin-backend/darwin-spring-boot/issues[Report Issue].
