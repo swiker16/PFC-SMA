@@ -56,7 +56,7 @@ Ya tendriamos descargado el PHPUnit y para ejecutar los tests seria lo siguiente
 The microservice passbook-get has the following structure:
 
 ----
-project_name/           # Directorio raíz del proyecto
+pfc-sma/           # Directorio raíz del proyecto
 ├── assets/             # Recursos estáticos como CSS, JavaScript, imágenes
 │   ├── css/            # Archivos CSS
 │   ├── js/             # Archivos JavaScript
@@ -80,13 +80,11 @@ project_name/           # Directorio raíz del proyecto
 │   ├── user.php        # Modelo de usuario
 │   ├── product.php     # Modelo de producto
 │
-├── controllers/        # Controladores para gestionar las solicitudes
-│   ├── homeController.php    # Controlador de la página de inicio
-│   ├── productController.php # Controlador de productos
+├── tests/              # Test unitarios
+│   ├── homeTests.php    # Controlador de la página de inicio
 │
-├── vendor/             # Dependencias de terceros (si se utilizan)
+├── vendor/             # Dependencias de terceros
 │
-├── .htaccess           # Archivo de configuración de Apache (para URL amigables)
 ├── index.php           # Página de inicio del sitio
 ├── about.php           # Ejemplo de una página adicional
 ├── contact.php         # Ejemplo de una página adicional
