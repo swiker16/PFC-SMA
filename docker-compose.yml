@@ -13,13 +13,13 @@ services:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-      MYSQL_DATABASE: mydatabase
+      MYSQL_DATABASE: magiccinema
 
   mysql:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydatabase
+      MYSQL_DATABASE: magiccinema
     ports:
       - "3306:3306"
 

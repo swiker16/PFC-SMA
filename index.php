@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Ejemplo con Parámetros en PHP</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de PHP y MySQL</title>
 </head>
 <body>
-    <h1>Mensaje Personalizado en PHP</h1>
 
-    <?php
-    // Verificar si se proporcionó el parámetro "nombre" en la URL
-    if (isset($_GET['nombre'])) {
-        $nombre = $_GET['nombre'];
-        // Mostrar un mensaje personalizado
-        echo "<p>Hola, $nombre. ¡Bienvenido al sitio!</p>";
-    } else {
-        // Si no se proporcionó el parámetro "nombre", mostrar un mensaje genérico
-        echo "<p>Bienvenido al sitio. Por favor, proporciona tu nombre en la URL para un mensaje personalizado.</p>";
+<?php
+// Incluir el archivo de conexión
+include_once 'src/config.php';
+
+$conexion = ConnectDatabase::conectar();
+
+$sql = "SELECT * from peliculas";
+
+$resultado = $conexion->prepare($sql);
+
+$resultado->execute();
+
+if ($resultado->rowCount() == 0) {
+    echo "<div class ='container'>";
+        echo "No hay ningúna publicacion subida.";
+    echo "</div>";
+} else {
+    while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
+        echo $registro['Titulo'];
     }
-    ?>
+}
+
+?>
+
 </body>
 </html>
