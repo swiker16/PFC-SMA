@@ -89,6 +89,7 @@ pfc-sma/           # Directorio raíz del proyecto
 ├── about.php           # Ejemplo de una página adicional
 ├── contact.php         # Ejemplo de una página adicional
 ├── .gitignore          # Archivo para ignorar archivos/directorios en Git
-
+|
+|-- Dockerfile          # Archivo Docker para crear contenedores
 ----
 
