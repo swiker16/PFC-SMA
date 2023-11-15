@@ -1,7 +1,7 @@
 {
     "autoload": {
         "classmap": [
-            "includes/"
+            "../"
         ]
     },
     "require-dev": {

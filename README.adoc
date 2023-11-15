@@ -76,9 +76,6 @@ pfc-sma/           # Directorio raíz del proyecto
 │   ├── products.php    # Página de productos
 │   ├── contact.php     # Página de contacto
 │
-├── models/             # Clases y scripts para interactuar con la base de datos
-│   ├── user.php        # Modelo de usuario
-│   ├── product.php     # Modelo de producto
 │
 ├── tests/              # Test unitarios
 │   ├── homeTests.php    # Controlador de la página de inicio

@@ -9,7 +9,7 @@
 
 <?php
 // Incluir el archivo de conexión
-include_once 'src/config.php';
+include_once 'includes/config.php';
 
 $conexion = ConnectDatabase::conectar();
 
@@ -30,6 +30,32 @@ if ($resultado->rowCount() == 0) {
 }
 
 ?>
+    <form action="includes/insertar_pelicula.php" method="post" enctype="multipart/form-data">
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" required><br>
 
+        <label for="director">Director:</label>
+        <input type="text" name="director" required><br>
+
+        <label for="descripcion">descripcion:</label>
+        <input type="text" name="descripcion" required><br>
+
+        <label for="genero">genero:</label>
+        <input type="text" name="genero" required><br>
+
+        <label for="duracion">duracion:</label>
+        <input type="text" name="duracion" required><br>
+
+        <label for="clas">clas:</label>
+        <input type="text" name="clas" required><br>
+
+        <label for="fecha">datw:</label>
+        <input type="date" name="fecha" required><br>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" name="imagen" accept="image/*" required><br>
+
+        <input type="submit" value="Insertar Película">
+    </form>
 </body>
 </html>
