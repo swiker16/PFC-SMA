@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 	<meta charset="utf-8">
@@ -7,7 +7,7 @@
 
 	<!-- Font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<!-- CSS -->
 	<link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css">
 	<link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
@@ -31,10 +31,14 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
 	<title>Magic Cinema</title>
+	<!-- Agrega esto en el head de tu HTML -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
 </head>
+
 <body class="body">
-	
+
 	<!-- header -->
 	<header class="header">
 		<div class="header__wrap">
@@ -50,18 +54,21 @@
 
 							<!-- header nav -->
 							<ul class="header__nav">
+								<li class="header__nav-item">
+									<a href="views/cartelera.php" class="header__nav-link">Cartelera</a>
+								</li>
 								<!-- dropdown -->
 								<li class="header__nav-item">
-									<a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuHome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Promociones</a>
+									<a href="views/promociones.php" class="header__nav-link">Promociones</a>
 								</li>
 								<!-- end dropdown -->
 
 								<li class="header__nav-item">
-									<a href="pricing.html" class="header__nav-link">Experiencias</a>
+									<a href="views/experiencias.php" class="header__nav-link">Experiencias</a>
 								</li>
 
 								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">Contactanos</a>
+									<a href="views/contactanos.php" class="header__nav-link">Contactanos</a>
 								</li>
 								<!-- end dropdown -->
 							</ul>
@@ -105,80 +112,31 @@
 		</form>
 		<!-- end header search -->
 	</header>
+	
 	<?php
-include_once 'includes/config.php';
+	include 'includes/indexFunctions.php';
 
-$conexion = ConnectDatabase::conectar();
-$sql = "SELECT * FROM peliculas ORDER BY pelicula_id DESC LIMIT 7";
-$resultado = $conexion->query($sql);
+	mostrarTopPeliculas();
 
-if ($resultado->rowCount() > 0) {
-?>
-
-<!-- home -->
-<section class="home">
-    <!-- home bg -->
-    <div class="owl-carousel home__bg">
-        <div class="item home__cover" data-bg="assets/img/home/home__bg.jpg"></div>
-        <div class="item home__cover" data-bg="assets/img/home/home__bg2.jpg"></div>
-        <div class="item home__cover" data-bg="assets/img/home/home__bg3.jpg"></div>
-        <div class="item home__cover" data-bg="assets/img/home/home__bg4.jpg"></div>
-    </div>
-    <!-- end home bg -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="home__title"><b>TOP PELÍCULAS</b></h1>
-
-                <button class="home__nav home__nav--prev" type="button">
-                    <i class="icon ion-ios-arrow-round-back"></i>
-                </button>
-                <button class="home__nav home__nav--next" type="button">
-                    <i class="icon ion-ios-arrow-round-forward"></i>
-                </button>
-            </div>
-
-            <div class="col-12">
-                <div class="owl-carousel home__carousel">
-                    <?php
-                    while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                        $imagen_binaria = $registro['imagen'];
-                        $titulo = $registro['titulo'];
-                        $genero = $registro['genero'];
-                    ?>
-                        <div class="item">
-                            <!-- card -->
-                            <div class="card card--big">
-                                <div class="card__cover">
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($imagen_binaria); ?>" class="card-img-top" alt="<?php echo $titulo; ?>">
-                                    <a href="#" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                                <div class="card__content">
-                                    <h3 class="card__title"><?php echo $titulo; ?></h3>
-                                    <span class="card__category">
-                                        <a href="#"><?php echo $genero; ?></a>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- end card -->
-                        </div>
-                    <?php
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<?php
-}
-?>
+	?>
 
 	<!-- end home -->
+	<section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title">Compra rápida</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</section>
 
 	<!-- content -->
 	<section class="content">
@@ -187,155 +145,175 @@ if ($resultado->rowCount() > 0) {
 				<div class="row">
 					<div class="col-12">
 						<!-- content title -->
-						<h2 class="content__title">Cartelera</h2>
+						<h2 class="content__title">Ofertas y Sorteos</h2>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<?php
-include_once 'includes/config.php';
-
-$conexion = ConnectDatabase::conectar();
-$sql = "SELECT * FROM peliculas";
-$resultado = $conexion->query($sql);
-
-if ($resultado->rowCount() > 0) {
-?>
-
-<div class="container">
-    <!-- content tabs -->
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
-            <div class="row">
-                <?php
-                while ($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                    $imagen_binaria = $registro['imagen'];
-                    $titulo = $registro['titulo'];
-                    $genero = $registro['genero'];
-                    $edad = $registro['clasificacion'];
-                    $descripcion = $registro['descripcion'];
-                ?>
-                <div class="col-6 col-sm-12 col-lg-6">
-                    <div class="card card--list">
-                        <div class="row">
-                            <div class="col-12 col-sm-4">
-                                <div class="card__cover">
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($imagen_binaria); ?>" alt="<?php echo $titulo; ?>">
-                                    <a href="<?php echo $trailer_url; ?>" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-8">
-                                <div class="card__content">
-                                    <h3 class="card__title"><a href="#"><?php echo $titulo; ?></a></h3>
-                                    <span class="card__category">
-                                        <a href="#"><?php echo $genero; ?></a>
-                                    </span>
-
-                                    <div class="card__wrap">
-
-                                        <ul class="card__list">
-                                            <li><?php echo $edad; ?></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="card__description">
-                                        <p><?php echo $descripcion; ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-    <!-- end content tabs -->
-</div>
-
-<?php
-}
-?>
-
+		<div class="container">
+			<div class="card my-5 border border-0" style="max-width: 1040px; background-color: transparent;">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="assets/img/wish-el-poder-de-los-deseos-sorteo-viaje-disney.jpg" class="img-fluid rounded-start" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title" style="color:#fff;">¡Todos tus deseos con este viaje lleno de magia!</h5>
+							<p class="card-text" style="color:#fff;">Compra ya tu entrada online y haz tus sueños realidad ganando este viaje a Disneyland® Paris</p>
+							<p class="card-text" style="color:#fff;">Participa en el sorteo con "Wish: El poder de los deseos" y podrás conseguir un viaje en familia al lugar donde todos los deseos se hacen realidad.</p>
+							<p class="card-text" style="color:#fff;">El sorteo termina el: 26/11/2023</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card my-5 border border-0" style="max-width: 1040px; background-color: transparent;">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="assets/img/ofertas-wonka-cinesa.jpg" class="img-fluid rounded-start" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title" style="color:#fff;">¡Consigue varios premios inspirados en la película!</h5>
+							<p class="card-text" style="color:#fff;">Compra ya tus entradas online para ver "Wonka" y consigue todos estos premios</p>
+							<p class="card-text" style="color:#fff;">¿Te vienes de viaje por el mundo con el joven Willy Wonka? Sé de los primeros en conocer la historia del personaje más emblemático de Roald Dahl. ¡Y consigue varios premios inspirados en la película!</p>
+							<p class="card-text" style="color:#fff;">La película se estrena el: 06/12/2023</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card my-5 border border-0" style="max-width: 1040px; background-color: transparent;">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="assets/img/ofertas-los-juegos-del-hambre-cinesa.jpg" class="img-fluid rounded-start" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title"style="color:#fff;">¡Consigue varios premios inspirados en la película!</h5>
+							<p class="card-text" style="color:#fff;">Compra ya tus entradas online para ver "Los Juegos del Hambre: Balada de pájaros cantores y serpientes" y consigue todos estos premios.</p>
+							<p class="card-text" style="color:#fff;">¿Te atreves a seguir de cerca los primeros Juegos? Viaja al Distrito 12 de hace 65 años a través de la gran pantalla. ¡Y consigue varios premios inspirados en la película!</p>
+							<p class="card-text" style="color:#fff;">La película se estrena el: 17/11/2023</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<!-- end content -->
 
-
-	<!-- footer -->
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-				<!-- footer list -->
-				<div class="col-12 col-md-3">
-					<h6 class="footer__title">Download Our App</h6>
-					<ul class="footer__app">
-						<li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
-						<li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
-					</ul>
+	<section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title">PELÍCULAS EN VERSIÓN ORIGINAL</h2>
+					</div>
 				</div>
-				<!-- end footer list -->
-
-				<!-- footer list -->
-				<div class="col-6 col-sm-4 col-md-3">
-					<h6 class="footer__title">Resources</h6>
-					<ul class="footer__list">
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Pricing Plan</a></li>
-						<li><a href="#">Help</a></li>
-					</ul>
-				</div>
-				<!-- end footer list -->
-
-				<!-- footer list -->
-				<div class="col-6 col-sm-4 col-md-3">
-					<h6 class="footer__title">Legal</h6>
-					<ul class="footer__list">
-						<li><a href="#">Terms of Use</a></li>
-						<li><a href="#">Privacy Policy</a></li>
-						<li><a href="#">Security</a></li>
-					</ul>
-				</div>
-				<!-- end footer list -->
-
-				<!-- footer list -->
-				<div class="col-12 col-sm-4 col-md-3">
-					<h6 class="footer__title">Contact</h6>
-					<ul class="footer__list">
-						<li><a href="tel:+18002345678">+1 (800) 234-5678</a></li>
-						<li><a href="mailto:support@moviego.com">support@flixgo.com</a></li>
-					</ul>
-					<ul class="footer__social">
-						<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
-						<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
-						<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-						<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
-					</ul>
-				</div>
-				<!-- end footer list -->
 			</div>
 		</div>
-	</footer>
-	<!-- end footer -->
+		<div class="container">
+			<div class="card text-bg-dark">
+				<img src="assets/img/peliculas-version-original-septiembre-cinesa.webp" class="card-img" alt="...">
+				<div class="card-img-overlay my-5">
+					<h5 class="card-title" style="font-family: 'Ubuntu', sans-serif;">¿Prefieres ver las películas en versión original?</h5>
+					<p class="card-text">The Marvels, Los Juegos del Hambre, Five Nights at Freddy's... En Cinesa, encontrarás tus títulos preferidos también en Versión Original Subtitulada al Español.</p>
+				</div>
+			</div>
+		</div>
+	</section>
 
-	<!-- JS -->
-	<script src="assets/js/jquery-3.3.1.min.js"></script>
-	<script src="assets/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<script src="assets/assets/js/jquery.mousewheel.min.js"></script>
-	<script src="assets/js/jquery.mCustomScrollbar.min.js"></script>
-	<script src="assets/js/wNumb.js"></script>
-	<script src="assets/js/nouislider.min.js"></script>
-	<script src="assets/js/plyr.min.js"></script>
-	<script src="assets/js/jquery.morelines.min.js"></script>
-	<script src="assets/js/photoswipe.min.js"></script>
-	<script src="assets/js/photoswipe-ui-default.min.js"></script>
-	<script src="assets/js/main.js"></script>
+	<section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title">DESCUBRE NUESTRAS SALAS PREMIUM</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="card text-bg-dark">
+				<img src="assets/img/banner-plf-1324x420.jpg" class="card-img" alt="...">
+				<div class="card-img-overlay my-5">
+					<h5 class="card-title" style="font-family: 'Ubuntu', sans-serif;">Salas Premium</h5>
+					<p class="card-text text-start"">IMAX, ISENSE, DBOX, SCREENX... Conoce todos los detalles de las salas de cine premium más exclusivas. Todo a tu alcance para hacer de tu visita al cine una experiencia única.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- footer -->
+	<footer class=" footer">
+					<div class="container">
+						<div class="row">
+							<!-- footer list -->
+							<div class="col-12 col-md-3">
+								<h6 class="footer__title"> </h6>
+								<ul class="footer__app">
+									<li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+									<li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
+								</ul>
+							</div>
+							<!-- end footer list -->
+
+							<!-- footer list -->
+							<div class="col-6 col-sm-4 col-md-3">
+								<h6 class="footer__title">Resources</h6>
+								<ul class="footer__list">
+									<li><a href="#">About Us</a></li>
+									<li><a href="#">Pricing Plan</a></li>
+									<li><a href="#">Help</a></li>
+								</ul>
+							</div>
+							<!-- end footer list -->
+
+							<!-- footer list -->
+							<div class="col-6 col-sm-4 col-md-3">
+								<h6 class="footer__title">Legal</h6>
+								<ul class="footer__list">
+									<li><a href="#">Terms of Use</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Security</a></li>
+								</ul>
+							</div>
+							<!-- end footer list -->
+
+							<!-- footer list -->
+							<div class="col-12 col-sm-4 col-md-3">
+								<h6 class="footer__title">Contacto</h6>
+								<ul class="footer__list">
+									<li><a href="tel:+18002345678">+34 624 23 34 03</a></li>
+									<li><a href="mailto:atencionalclient@cinemmagic.com">atencionalclient@cinemmagic.com</a></li>
+								</ul>
+								<ul class="footer__social">
+									<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+									<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+									<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+									<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+								</ul>
+							</div>
+							<!-- end footer list -->
+						</div>
+					</div>
+					</footer>
+					<!-- end footer -->
+
+					<!-- JS -->
+					<script src="assets/js/jquery-3.3.1.min.js"></script>
+					<script src="assets/js/bootstrap.bundle.min.js"></script>
+					<script src="assets/js/owl.carousel.min.js"></script>
+					<script src="assets/assets/js/jquery.mousewheel.min.js"></script>
+					<script src="assets/js/jquery.mCustomScrollbar.min.js"></script>
+					<script src="assets/js/wNumb.js"></script>
+					<script src="assets/js/nouislider.min.js"></script>
+					<script src="assets/js/plyr.min.js"></script>
+					<script src="assets/js/jquery.morelines.min.js"></script>
+					<script src="assets/js/photoswipe.min.js"></script>
+					<script src="assets/js/photoswipe-ui-default.min.js"></script>
+					<script src="assets/js/main.js"></script>
 </body>
 
 </html>
