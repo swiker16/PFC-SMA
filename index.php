@@ -69,7 +69,7 @@
 
 							<!-- header auth -->
 							<div class="header__auth">
-								<a href="signin.html" class="header__sign-in">
+								<a href="views/html/formLogin.html" class="header__sign-in">
 									<i class="icon ion-ios-log-in"></i>
 									<span>Iniciar Sesión</span>
 								</a>
