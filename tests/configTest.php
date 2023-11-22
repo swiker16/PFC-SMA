@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 include 'includes/config.php';
 
 
-class configTest extends TestCase
+class ConfigTest extends TestCase
 {
 
 
