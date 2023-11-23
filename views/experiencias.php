@@ -78,6 +78,10 @@
                                     <span>Iniciar Sesión</span>
                                 </a>
                             </div>
+                            <a href="../views/html/FormRegister.html" class="header__sign-in">
+								<i class="icon ion-ios-log-in"></i>
+								<span>Registrarse</span>
+							</a>
                             <!-- end header auth -->
 
                             <!-- header menu btn -->
@@ -92,22 +96,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- header search -->
-        <form action="#" class="header__search">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="header__search-content">
-                            <input type="text" placeholder="Search for a movie, TV Series that you are looking for">
-
-                            <button type="button">search</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- end header search -->
     </header>
     <!-- home -->
     <section class="home">
@@ -181,61 +169,54 @@
 
    
 
-    </ <!-- footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <!-- footer list -->
-                <div class="col-12 col-md-3">
-                    <h6 class="footer__title">Download Our App</h6>
-                    <ul class="footer__app">
-                        <li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
-                        <li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
+    <footer class=" footer">
+		<div class="container">
+			<div class="row">
+				<!-- footer list -->
+				<div class="col-12 col-md-3">
+					<h6 class="footer__title"> </h6>
+					<ul class="footer__app">
+						<li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+						<li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
 
-                <!-- footer list -->
-                <div class="col-6 col-sm-4 col-md-3">
-                    <h6 class="footer__title">Resources</h6>
-                    <ul class="footer__list">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Pricing Plan</a></li>
-                        <li><a href="#">Help</a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
+				<!-- footer list -->
+				<div class="col-6 col-sm-4 col-md-3">
+					<h6 class="footer__title">Sobre nosotros</h6>
+					<ul class="footer__list">
+						<li><a href="#">Quienés somos</a></li>
+						<li><a href="#">Trabaja con nosotros</a></li>
+						<li><a href="#">Apoyo Institucional</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
 
-                <!-- footer list -->
-                <div class="col-6 col-sm-4 col-md-3">
-                    <h6 class="footer__title">Legal</h6>
-                    <ul class="footer__list">
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Security</a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
+				<!-- footer list -->
+				<div class="col-6 col-sm-4 col-md-3">
+					<h6 class="footer__title">Legal</h6>
+					<ul class="footer__list">
+						<li><a href="#">Aviso Legal</a></li>
+						<li><a href="#">Condiciones de compra</a></li>
+						<li><a href="#">Política de privacidad</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
 
-                <!-- footer list -->
-                <div class="col-12 col-sm-4 col-md-3">
-                    <h6 class="footer__title">Contact</h6>
-                    <ul class="footer__list">
-                        <li><a href="tel:+18002345678">+1 (800) 234-5678</a></li>
-                        <li><a href="mailto:support@moviego.com">support@flixgo.com</a></li>
-                    </ul>
-                    <ul class="footer__social">
-                        <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
-                        <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
-                        <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
-                        <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
-            </div>
-        </div>
-    </footer>
-    <!-- end footer -->
+				<!-- footer list -->
+				<div class="col-12 col-sm-4 col-md-3">
+					<h6 class="footer__title">Contacto</h6>
+					<ul class="footer__list">
+						<li><a href="tel:+18002345678">+34 624 23 34 03</a></li>
+						<li><a href="mailto:atencionalclient@cinemmagic.com">atencionalclient@magiccinema.com</a></li>
+					</ul>
+				</div>
+				<!-- end footer list -->
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
 
     <!-- JS -->
     <script src="../assets/js/jquery-3.3.1.min.js"></script>
