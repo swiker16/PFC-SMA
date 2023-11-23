@@ -120,24 +120,6 @@
 
 	?>
 
-	<!-- end home -->
-	<section class="content">
-		<div class="content__head">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<!-- content title -->
-						<h2 class="content__title">Compra rápida</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
-
-	</section>
-
 	<!-- content -->
 	<section class="content">
 		<div class="content__head">

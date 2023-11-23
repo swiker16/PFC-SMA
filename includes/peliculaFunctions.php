@@ -83,9 +83,10 @@ function obtenerInformacionPeliculaEntrada($id_pelicula)
 
         // Comprueba si hay resultados
         if ($stmt->rowCount() > 0) {
-            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
                 echo '<div class="container">';
                 echo '<div class="row">';
+                while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo '<div class="col-sm-4 mb-3 mb-sm-0">';
                 echo '<div class="card " style="box-shadow: 0 5px 25px 0 rgba(0,0,0,0.3); border: 2px solid transparent; border-image: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border-image-slice: 1; background-color: #28282d;">';
                 echo '<div class="card-body p-3">';
@@ -101,9 +102,10 @@ function obtenerInformacionPeliculaEntrada($id_pelicula)
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
+                }
                 echo '</div>';
                 echo '</div>';
-            }
+            
         } else {
             // Muestra el mensaje de error con el nombre de la película en lugar del ID
             $sql = "SELECT titulo FROM peliculas WHERE pelicula_id = :id_pelicula";

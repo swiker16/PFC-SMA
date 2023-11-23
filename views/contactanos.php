@@ -116,14 +116,14 @@
             <section class="home mb-4 ">
 
                 <!--Section heading-->
-                <h2 class="h1-responsive font-weight-bold text-center my-4 text-white">Contactanos</h2>
+                <h2 class="h1-responsive font-weight-bold text-center my-4 text-white" style="font-family: 'Open Sans', sans-serif;">Contactanos</h2>
                 <!--Section description-->
-                <p class="text-center w-responsive mx-auto mb-5 text-white">
+                <p class="text-center w-responsive mx-auto mb-5 text-white" style="font-family: 'Open Sans', sans-serif;">
                     ¿Tiene usted alguna pregunta? Por favor, no dude en contactarnos directamente. Nuestro equipo le responderá dentro de
                     Cuestión de horas para ayudarte.
                 </p>
 
-                <div class="row">
+                <div class="row d-flex justify-content-center">
 
                     <!--Grid column-->
                     <div class="col-md-9 mb-md-0 mb-5">
@@ -135,8 +135,8 @@
                             <!--Grid column-->
                             <div class="col-md-12 py-3">
                                 <div class="md-form mb-0">
-                                    <label for="email" class="text-white">Correo electronico</label>
-                                    <input type="text" id="email" name="to" class="form-control">
+                                    <label for="email" class="text-white" style="font-family: 'Open Sans', sans-serif;">Correo electronico</label>
+                                    <input type="text" id="email" name="to" class="form-control" style="font-family: 'Open Sans', sans-serif;">
 
                                 </div>
                             </div>
@@ -148,8 +148,8 @@
                         <div class="row">
                             <div class="col-md-12 py-3">
                                 <div class="md-form mb-0">
-                                    <label for="subject" class="text-white">Asunto</label>
-                                    <input type="text" id="subject" name="subject" class="form-control">
+                                    <label for="subject" class="text-white" style="font-family: 'Open Sans', sans-serif;">Asunto</label>
+                                    <input type="text" id="subject" name="subject" class="form-control" style="font-family: 'Open Sans', sans-serif;">
 
                                 </div>
                             </div>
@@ -162,8 +162,8 @@
                             <div class="col-md-12 ">
 
                                 <div class="md-form">
-                                    <label for="message" class="text-white">Mensaje</label>
-                                    <textarea type="text" id="message" name="body" rows="2" class="form-control md-textarea"></textarea>
+                                    <label for="message" class="text-white" style="font-family: 'Open Sans', sans-serif;">Mensaje</label>
+                                    <textarea type="text" id="message" name="body" rows="2" class="form-control md-textarea"style="font-family: 'Open Sans', sans-serif;"></textarea>
 
                                 </div>
 
@@ -171,9 +171,7 @@
                         </div>
                         <!--Grid row-->
                         <div class="text-center text-md-left py-3">
-                            <button type="submit" class="header__sign-in">
-                                <i class="icon ion-ios-log-in"></i> Enviar
-                            </button>
+                        <button><a href="#" class="" style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">Enviar</a></button>
                         </div>
                         <div class="status"></div>
                     </div>
