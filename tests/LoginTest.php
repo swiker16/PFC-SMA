@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-include 'views/php/Login.php';
+include 'views/Login.php';
 
 class LoginTest extends TestCase
 {

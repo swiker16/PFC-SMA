@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-include 'views/php/Register.php';
+include 'views/Register.php';
 
 class RegisterTest extends TestCase
 {

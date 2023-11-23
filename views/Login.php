@@ -6,7 +6,7 @@ class login
 
     public function __construct()
     {
-        include_once "../../includes/config.php";
+        include_once "../includes/config.php";
         $this->conexion = ConnectDatabase::conectar();
     }
 
@@ -57,7 +57,7 @@ try {
 
     if ($login_usuario->verificarCredenciales($usuario_input, $contrasenia_input)) {
 
-        $login_usuario->redireccionar("../../index.php");
+        $login_usuario->redireccionar("../index.php");
 
     } else {
 

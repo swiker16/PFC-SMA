@@ -6,7 +6,7 @@ class Register
 
     public function __construct()
     {
-        include_once "../../includes/config.php";
+        include_once "../includes/config.php";
         $this->conexion = ConnectDatabase::conectar();
     }
 
@@ -28,6 +28,7 @@ class Register
 
         $sql = "INSERT INTO usuarios (Nombre_usuario, Contrasena, Correo_electronico) VALUES (:user, :password, :email)";
         $resultado = $this->conexion->prepare($sql);
+        
 
         $resultado->execute(array(":user" => $usuario, ":password" => $pass_cifrado, ":email" => $email));
 
@@ -67,7 +68,7 @@ try {
     } else {
 
         $registro_usuario->insertarUsuario($usuario_input, $contrasenia_input, $email_input);
-        $registro_usuario->redireccionar("../../index.php");
+        $registro_usuario->redireccionar("../index.php");
     }
 
 } catch (Exception $e) {
