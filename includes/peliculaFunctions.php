@@ -71,7 +71,7 @@ function obtenerInformacionPeliculaEntrada($id_pelicula)
         $conexion = ConnectDatabase::conectar();
 
         // Realiza la consulta SQL para obtener la información de la película específica
-        $sql = "SELECT horarios.Fecha_hora_inicio, horarios.sesion, salas.Nombre_sala as sala_nombre, peliculas.titulo as nombre_pelicula
+        $sql = "SELECT horarios.Horario_id, horarios.Fecha_hora_inicio, horarios.sesion, salas.Nombre_sala as sala_nombre, peliculas.titulo as nombre_pelicula
         FROM horarios
         INNER JOIN salas ON horarios.sala_id = salas.sala_id
         INNER JOIN peliculas ON horarios.pelicula_id = peliculas.pelicula_id
@@ -98,7 +98,7 @@ function obtenerInformacionPeliculaEntrada($id_pelicula)
                 $horaFormateada = date('H:i', strtotime($fila['Fecha_hora_inicio']));
 
                 echo '<p class="text-white" style="font-family: \'Open Sans\', sans-serif;"><strong>Sesión:</strong> ' . $horaFormateada . '</p>';
-                echo '<a href="#" class="" style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">Comprar Entrada</a>';
+                echo '<a href="comprarEntrada.php?id=', $fila['Horario_id'], '" class="" style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">Comprar Entrada</a>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
