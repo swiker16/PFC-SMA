@@ -5,7 +5,7 @@ class ConnectDatabase{
     public static function conectar()
     {
         try {
-            $db_host = "172.19.0.3";
+            $db_host = "172.19.0.2";
             $db_nombre = "magiccinema";
             $db_usuario = "root";
             $db_pass = "root";

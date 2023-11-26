@@ -150,8 +150,7 @@
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Sobre nosotros</h6>
                     <ul class="footer__list">
-                        <li><a href="#">Quienés somos</a></li>
-                        <li><a href="#">Trabaja con nosotros</a></li>
+                        <li><a href="html/QuienesSomos.html">Quienés somos</a></li>
                         <li><a href="#">Apoyo Institucional</a></li>
                     </ul>
                 </div>
@@ -161,9 +160,8 @@
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Legal</h6>
                     <ul class="footer__list">
-                        <li><a href="#">Aviso Legal</a></li>
-                        <li><a href="#">Condiciones de compra</a></li>
-                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="html/AvisLegal.html">Aviso Legal</a></li>
+                        <li><a href="html/CondicionesCompra.html">Condiciones de compra</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
