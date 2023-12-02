@@ -60,7 +60,7 @@ try {
 
     if ($login_usuario->verificarCredenciales($usuario_input, $contrasenia_input)) {
 
-        $login_usuario->redireccionar("user.php");
+        $login_usuario->redireccionar("../index.php");
 
     } else {
 
