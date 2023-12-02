@@ -23,6 +23,9 @@ class login
             $usuarioData = $resultado->fetch(PDO::FETCH_ASSOC);
 
             if (password_verify($contrasenia, $usuarioData['Contrasena'])) {
+                session_start();
+                $_SESSION["Usuario_ID"] = $usuarioData['Usuario_ID'];
+                $_SESSION["usuario"] = $usuarioData['Nombre_usuario'];
                 return true;
             }
         }
@@ -57,7 +60,7 @@ try {
 
     if ($login_usuario->verificarCredenciales($usuario_input, $contrasenia_input)) {
 
-        $login_usuario->redireccionar("../index.php");
+        $login_usuario->redireccionar("user.php");
 
     } else {
 

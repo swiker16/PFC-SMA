@@ -49,7 +49,17 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
         <link rel="stylesheet" href="../assets/css/photoswipe.css">
         <link rel="stylesheet" href="../assets/css/default-skin.css">
         <link rel="stylesheet" href="../assets/css/main.css">
+        <!-- JavaScript -->
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
+        <!-- CSS -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+        <!-- Default theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+        <!-- Semantic UI theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+        <!-- Bootstrap theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
         <!-- Favicons -->
         <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
         <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
@@ -86,6 +96,11 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
         .available {
             background-color: #4CAF50;
             /* verde */
+        }
+
+        .selected {
+            background-color: #9cf7a7;
+            /* Cambia el color a tu preferencia */
         }
     </style>
 </head>
@@ -173,7 +188,6 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
             </div>
         </div>
         <div class="container">
-
             <?php
             include_once '../includes/config.php';
 
@@ -198,38 +212,138 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
             while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 // Mostrar la información en la página
                 echo '<div>';
-                echo '<h2>Detalles del Horario</h2>';
-                echo '<p><strong>Nombre de la Película:</strong> ' . $fila['nombre_pelicula']  . '</p>';
-                echo '<p><strong>Sala:</strong> ' . $fila['sala_nombre'] . '</p>';
+                echo '<h2 style="color: #fff; font-family: \'Open Sans\', sans-serif;">Detalles de la Reserva</h2>';
+                echo '<p style="color: #fff; font-family: \'Open Sans\', sans-serif;"><strong>Nombre de la Película:</strong> ' . $fila['nombre_pelicula']  . '</p>';
+                echo '<p style="color: #fff; font-family: \'Open Sans\', sans-serif;"><strong>Sala:</strong> ' . $fila['sala_nombre'] . '</p>';
                 $fechaFormateada = date('d-m-Y H:i', strtotime($fila['Fecha_hora_inicio']));  // Cambiado a 'd-m-Y H:i'
-                echo '<p><strong>Fecha y Hora:</strong> ' . $fechaFormateada . '</p>';
+                echo '<p style="color: #fff; font-family: \'Open Sans\', sans-serif;"><strong>Fecha y Hora:</strong> ' . $fechaFormateada . '</p>';
                 // Agrega más detalles según sea necesario
                 echo '</div>';
             }
+
+            // Obtener información de los asientos para el horario seleccionado
+            $sqlAsientos = "SELECT id_asiento, numero_fila, numero_columna, estado_asiento FROM asientos WHERE horario_id = :id_horario";
+            $stmtAsientos = $conexion->prepare($sqlAsientos);
+            $stmtAsientos->bindParam(':id_horario', $id_horario, PDO::PARAM_INT);
+            $stmtAsientos->execute();
+
+            // Almacenar información de asientos en un array asociativo
+            $asientos = [];
+            $idButacas = [];
+
+            while ($filaAsiento = $stmtAsientos->fetch(PDO::FETCH_ASSOC)) {
+                $asientos[$filaAsiento['numero_fila']][$filaAsiento['numero_columna']] = $filaAsiento['estado_asiento'];
+                $idButacas[$filaAsiento['numero_fila']][$filaAsiento['numero_columna']] = $filaAsiento['id_asiento'];
+            }
             ?>
-        </div>
 
-        <div class="container">
-            <div class="d-flex justify-content-center">
-
-
-                <h2>Asientos Disponibles</h2>
-                <div class="seating-plan">
-                    <?php
-                    foreach ($asientos as $fila => $columnas) {
-                        foreach ($columnas as $columna => $estado) {
-                            $clase_asiento = 'seat';
-                            if ($estado == 'Disponible') {
-                                $clase_asiento .= ' available';
+            <div class="row">
+                <div class="col-12 text-center">
+                    <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+                        <polygon points="10,10 290,10 250,90 50,90" style="fill: #3b475a;" />
+                        <text x="150" y="50" text-anchor="middle" fill="#fff" font-size="12" font-family="Arial">Pantalla</text>
+                    </svg>
+                </div>
+                <div class="col-12 text-center mt-3 d-flex justify-content-center">
+                    <div class="seating-plan" id="seating-plan">
+                        <?php
+                        foreach ($asientos as $fila => $columnas) {
+                            foreach ($columnas as $columna => $estado) {
+                                $clase_asiento = 'seat';
+                                if ($estado == 'Disponible') {
+                                    $clase_asiento .= ' available';
+                                }
+                                $id = $idButacas[$fila][$columna];
+                                echo '<div style="cursor:default;" class="' . $clase_asiento . '" data-id="' . $id . '" onclick="seleccionarButaca(this, ' . $fila . ', ' . $columna . ', \'' . $estado . '\')">' . $fila . '-' . $columna . '</div>';
                             }
-                            echo '<div class="' . $clase_asiento . '">' . $fila . '-' . $columna . '</div>';
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <div style="color: #fff; font-family: 'Open Sans', sans-serif;" id="info-butacas-seleccionadas"></div>
+                    <div id="comprar-entrada" style="display: none;">
+                        <a id="enlace-comprar-entrada" href="tipoEntrada.php" class="btn btn-primary m-3" style=" font-family: 'Open Sans', sans-serif; background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">Comprar Entrada</a>
+                    </div>
+                    <p style="color: red; font-family: 'Open Sans', sans-serif;" id="mensaje-error"></p>
                 </div>
             </div>
-    </section>
 
+            <script>
+                var butacasSeleccionadas = [];
+
+                function seleccionarButaca(elemento, fila, columna, estado) {
+                    var mensajeErrorElemento = document.getElementById('mensaje-error');
+                    var id = elemento.dataset.id;
+
+                    if (estado !== 'Disponible') {
+                        mensajeErrorElemento.innerText = 'Este asiento está ocupado.';
+                        return;
+                    }
+
+                    var butaca = {
+                        fila: fila,
+                        columna: columna,
+                        id: id // Incluir el ID en el objeto de butaca
+                    };
+
+                    // Verificar si la butaca ya está seleccionada
+                    var indice = butacasSeleccionadas.findIndex(function(e) {
+                        return e.fila === fila && e.columna === columna;
+                    });
+
+                    if (indice !== -1) {
+                        // Deseleccionar la butaca si ya está seleccionada
+                        butacasSeleccionadas.splice(indice, 1);
+                        elemento.classList.remove('selected');
+                    } else {
+                        // Seleccionar la butaca
+                        if (butacasSeleccionadas.length < 8) {
+                            butacasSeleccionadas.push(butaca);
+                            elemento.classList.add('selected');
+                        } else {
+                            mensajeErrorElemento.innerText = 'No puedes seleccionar más de 8 butacas.';
+                        }
+                    }
+
+                    // Limpiar el mensaje de error después de un tiempo
+                    setTimeout(function() {
+                        mensajeErrorElemento.innerText = '';
+                    }, 30000);
+
+                    // Mostrar información de butacas seleccionadas
+                    actualizarInfoButacas();
+                }
+
+                function actualizarInfoButacas() {
+                    var infoButacas = 'Butacas seleccionadas: ';
+                    var idsButacas = []; // Crear un array para almacenar los IDs de las butacas seleccionadas
+
+                    for (var i = 0; i < butacasSeleccionadas.length; i++) {
+                        infoButacas += butacasSeleccionadas[i].fila + '-' + butacasSeleccionadas[i].columna + ', ';
+
+                        // Obtener el ID de cada butaca seleccionada y agregarlo al array
+                        idsButacas.push(butacasSeleccionadas[i].id);
+                    }
+
+                    // Mostrar información de butacas seleccionadas
+                    document.getElementById('info-butacas-seleccionadas').innerText = infoButacas;
+
+                    // Mostrar el mensaje "Comprar Entrada" al lado de las butacas seleccionadas
+                    var comprarEntradaElement = document.getElementById('comprar-entrada');
+                    if (butacasSeleccionadas.length > 0) {
+                        comprarEntradaElement.style.display = 'block';
+
+                        // Modificar el enlace para incluir los parámetros
+                        var enlaceComprarEntrada = document.getElementById('enlace-comprar-entrada');
+                        enlaceComprarEntrada.href = 'tipoEntrada.php?butacas=' + butacasSeleccionadas.length + '&id=' + idsButacas.join(',');
+                    } else {
+                        comprarEntradaElement.style.display = 'none';
+                    }
+                }
+            </script>
+
+    </section>
     <footer class=" footer">
         <div class="container">
             <div class="row">
@@ -247,8 +361,7 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Sobre nosotros</h6>
                     <ul class="footer__list">
-                        <li><a href="#">Quienés somos</a></li>
-                        <li><a href="#">Trabaja con nosotros</a></li>
+                        <li><a href="html/QuienesSomos.html">Quienés somos</a></li>
                         <li><a href="#">Apoyo Institucional</a></li>
                     </ul>
                 </div>
@@ -258,9 +371,8 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Legal</h6>
                     <ul class="footer__list">
-                        <li><a href="#">Aviso Legal</a></li>
-                        <li><a href="#">Condiciones de compra</a></li>
-                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="html/AvisLegal.html">Aviso Legal</a></li>
+                        <li><a href="html/CondicionesCompra.html">Condiciones de compra</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
