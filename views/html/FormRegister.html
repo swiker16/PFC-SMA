@@ -62,12 +62,12 @@
 							</div>
 
 							<div class="sign__group sign__group--checkbox">
-								<input id="remember" name="remember" type="checkbox" checked="checked">
-								<label for="remember">Acepto las <a href="#">políticas de
+								<input id="check" name="check" type="checkbox" checked="checked" required>
+								<label for="check">Acepto las <a href="politicas.html">políticas de
 										privacidad</a></label>
 							</div>
 
-							<button class="sign__btn" type="submit">Regístrate ahora</button>
+							<button class="sign__btn" type="submit" onclick="validarFormulario()">Regístrate ahora</button>
 
 							<span class="sign__text">¿Ya tienes una cuenta? <a 
 								href="FormLogin.html">¡Iniciar sesión!</a></span>
@@ -77,6 +77,17 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		function validarFormulario() {
+		  var checkbox = document.getElementById('check');
+	
+		  if (!checkbox.checked) {
+			alert('Debes aceptar los términos y condiciones');
+		  }
+		  
+		}
+	</script>
 
 	<!-- JS -->
 	<script src="../../assets/js/jquery-3.3.1.min.js"></script>
