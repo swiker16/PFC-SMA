@@ -133,6 +133,7 @@
 
     <?php
     try {
+
         $pdo = new PDO("mysql:host=172.19.0.2;dbname=magiccinema", "root", "root");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

@@ -5,6 +5,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/dist/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/dist/css/themes/default.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/dist/alertify.min.js"></script>
+
 	<!-- Font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
 
@@ -35,107 +39,55 @@
 </head>
 
 <body class="body">
-	<header class="header">
-		<div class="header__wrap">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="header__content">
-							<!-- header logo -->
-							<a href="../../index.php" class="header__logo">
-								<img src="../../assets/img/Magic_Cinema-removebg-preview.png" alt="">
-							</a>
-							<!-- end header logo -->
-
-							<!-- header nav -->
-							<ul class="header__nav">
-								<li class="header__nav-item">
-									<a href="../cartelera.php" class="header__nav-link">Cartelera</a>
-								</li>
-								<!-- dropdown -->
-								<li class="header__nav-item">
-									<a href="../promociones.php" class="header__nav-link">Promociones</a>
-								</li>
-								<!-- end dropdown -->
-
-								<li class="header__nav-item">
-									<a href="../experiencias.php" class="header__nav-link">Experiencias</a>
-								</li>
-
-								<li class="header__nav-item">
-									<a href="../contactanos.php" class="header__nav-link">Contactanos</a>
-								</li>
-								<!-- end dropdown -->
-							</ul>
-							<!-- end header nav -->
-
-							<!-- header auth -->
-							<div class="header__auth">
-								<a href="FormLogin.html" class="header__sign-in">
-									<i class="icon ion-ios-log-in"></i>
-									<span>Iniciar Sesión</span>
-								</a>
-							</div>
-							<a href="FormRegister.html" class="header__sign-in">
-								<i class="icon ion-ios-log-in"></i>
-								<span>Registrarse</span>
-							</a>
-							<!-- end header auth -->
-
-							<!-- header menu btn -->
-							<button class="header__btn" type="button">
-								<span></span>
-								<span></span>
-								<span></span>
-							</button>
-							<!-- end header menu btn -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-
 	<div class="sign section--bg" data-bg="../../assets/img/section/section.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="sign__content">
-						<!-- registration form -->
 						<form action="../Register.php" method="post" class="sign__form">
 							<a href="../../index.php" class="sign__logo">
 								<img src="../../assets/img/logo.png" alt="">
 							</a>
 
 							<div class="sign__group">
-								<input type="text" name="user" class="sign__input" placeholder="Nombre de usuario">
+								<input type="text" name="user" class="sign__input" placeholder="Nombre de usuario" required>
 							</div>
 
 							<div class="sign__group">
-								<input type="password" name="password" class="sign__input" placeholder="Contraseña">
+								<input type="password" name="password" class="sign__input" placeholder="Contraseña" required>
 							</div>
 
 							<div class="sign__group">
-								<input type="email" name="email" class="sign__input" placeholder="Correo electrónico">
+								<input type="email" name="email" class="sign__input" placeholder="Correo electrónico" required>
 							</div>
 
 							<div class="sign__group sign__group--checkbox">
-								<input id="remember" name="remember" type="checkbox" checked="checked">
-								<label for="remember">Estoy de acuerdo con la <a href="#">política de
+								<input id="check" name="check" type="checkbox" checked="checked" required>
+								<label for="check">Acepto las <a href="politicas.html">políticas de
 										privacidad</a></label>
 							</div>
 
-							<button class="sign__btn" type="submit">Regístrate ahora</button>
+							<button class="sign__btn" type="submit" onclick="validarFormulario()">Regístrate ahora</button>
 
-							<span class="sign__text">¿Ya tienes una cuenta? <a href="FormLogin.html">¡Iniciar
-									sesión!</a></span>
+							<span class="sign__text">¿Ya tienes una cuenta? <a 
+								href="FormLogin.html">¡Iniciar sesión!</a></span>
 						</form>
-						<!-- registration form -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+		function validarFormulario() {
+		  var checkbox = document.getElementById('check');
+	
+		  if (!checkbox.checked) {
+			alert('Debes aceptar los términos y condiciones');
+		  }
+		  
+		}
+	</script>
 
 	<!-- JS -->
 	<script src="../../assets/js/jquery-3.3.1.min.js"></script>
