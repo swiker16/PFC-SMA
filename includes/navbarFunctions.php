@@ -32,6 +32,7 @@ function generateNavbar()
             // Usuario normal
             include "header_authenticated.php";
         }
+        
     } else {
         // Usuario no autenticado
         include "header_unauthenticated.php";

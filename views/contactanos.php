@@ -1,6 +1,43 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php';
 include '../includes/navbarFunctions.php';
 generateNavbar();
+
+$mensajeEnviado = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST["email"];
+    $asunto = $_POST["asunto"];
+    $mensaje = $_POST["mensaje"];
+
+    // Configuración de PHPMailer
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.hostinger.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'no-reply@magiccinema.es';
+        $mail->Password = 'MagicCinema2023*';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        $mail->setFrom('no-reply@magiccinema.es', 'Nombre del Remitente');
+        $mail->addAddress('no-reply@magiccinema.es', 'Iker Francos');
+
+        $mail->isHTML(true);
+        $mail->Subject = $asunto;
+        $mail->Body = "Correo del remitente: $email <br>Mensaje: $mensaje";
+
+        $mail->send();
+        $mensajeEnviado = true;
+
+    } catch (Exception $e) {
+        echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +78,7 @@ generateNavbar();
 
 <body class="body">
 
-    <form action="correoContactanos.php" method="post">
+ <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <!-- home -->
         <div class="container ">
             <!--Section: Contact v.2-->
@@ -68,7 +105,7 @@ generateNavbar();
                             <div class="col-md-12 py-3">
                                 <div class="md-form mb-0">
                                     <label for="email" class="text-white" style="font-family: 'Open Sans', sans-serif;">Correo electronico</label>
-                                    <input type="text" id="email" name="to" class="form-control" style="font-family: 'Open Sans', sans-serif;">
+                                    <input type="text" id="email" name="email" class="form-control" style="font-family: 'Open Sans', sans-serif;">
 
                                 </div>
                             </div>
@@ -81,7 +118,7 @@ generateNavbar();
                             <div class="col-md-12 py-3">
                                 <div class="md-form mb-0">
                                     <label for="subject" class="text-white" style="font-family: 'Open Sans', sans-serif;">Asunto</label>
-                                    <input type="text" id="subject" name="subject" class="form-control" style="font-family: 'Open Sans', sans-serif;">
+                                    <input type="text" id="subject" name="asunto" class="form-control" style="font-family: 'Open Sans', sans-serif;">
 
                                 </div>
                             </div>
@@ -95,7 +132,7 @@ generateNavbar();
 
                                 <div class="md-form">
                                     <label for="message" class="text-white" style="font-family: 'Open Sans', sans-serif;">Mensaje</label>
-                                    <textarea type="text" id="message" name="body" rows="2" class="form-control md-textarea" style="font-family: 'Open Sans', sans-serif;"></textarea>
+                                    <textarea type="text" id="message" name="mensaje" rows="2" class="form-control md-textarea" style="font-family: 'Open Sans', sans-serif;"></textarea>
 
                                 </div>
 
@@ -103,7 +140,7 @@ generateNavbar();
                         </div>
                         <!--Grid row-->
                         <div class="text-center text-md-left py-3">
-                            <button><a href="#" class="" style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">Enviar</a></button>
+                            <button class="" style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">Enviar</button>
                         </div>
                         <div class="status"></div>
                     </div>
@@ -116,6 +153,16 @@ generateNavbar();
     </form>
 
 
+
+    <script>
+        <?php
+        // Si el mensaje se envió correctamente, muestra la alerta y redirecciona
+    
+        if ($mensajeEnviado) {
+            echo "alert('¡El mensaje se envió correctamente!');";
+        }
+        ?>
+    </script>
 
     <footer class=" footer">
 		<div class="container">
