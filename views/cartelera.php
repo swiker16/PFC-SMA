@@ -1,6 +1,7 @@
 <?php
 include '../includes/navbarFunctions.php';
 generateNavbar();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,8 +42,6 @@ generateNavbar();
 
 <body class="body">
 
-
-
     <?php
     include_once '../includes/carteleraFunctions.php';
 
@@ -58,7 +57,7 @@ generateNavbar();
         <div class="content__head">
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-6">
                         <!-- content title -->
                         <h2 class="content__title">Cartelera</h2>
                     </div>

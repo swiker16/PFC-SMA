@@ -63,10 +63,19 @@ class cartelaClass
         }
     }
 
+
+
+
     public static function mostrarCartelera()
     {
         $conexion = ConnectDatabase::conectar();
+
+
+
+        // Consulta SQL sin criterios de filtro
         $sql = "SELECT * FROM peliculas";
+
+
         $resultado = $conexion->query($sql);
 
         if ($resultado->rowCount() > 0) {
@@ -83,39 +92,39 @@ class cartelaClass
                 $edad = $registro['clasificacion'];
                 $descripcion = $registro['descripcion'];
                 echo '<div class="col-6 col-sm-12 col-lg-6">
-                            <div class="card card--list border border-0" style="background-color: transparent;">
-                                <div class="row">
-                                    <div class="col-12 col-sm-4">
-                                        <a href="../views/pelicula.php?id=', $id_pelicula, '"><img src="data:image/jpeg;base64,', base64_encode($imagen_binaria), '" class="card-img-top" alt="', $titulo, '"></a>
-                                    </div>
+                        <div class="card card--list border border-0" style="background-color: transparent;">
+                            <div class="row">
+                                <div class="col-12 col-sm-4">
+                                    <a href="../views/pelicula.php?id=', $id_pelicula, '"><img src="data:image/jpeg;base64,', base64_encode($imagen_binaria), '" class="card-img-top" alt="', $titulo, '"></a>
+                                </div>
 
-                                    <div class="col-12 col-sm-8">
-                                        <div class="card__content">
-                                            <h3 class="card__title"><a href="../views/pelicula.php?id=', $id_pelicula, '">', $titulo, '</a></h3>
-                                            <span class="card__category">
-                                                <a href="#">', $genero, '</a>
-                                            </span>
+                                <div class="col-12 col-sm-8">
+                                    <div class="card__content">
+                                        <h3 class="card__title"><a href="../views/pelicula.php?id=', $id_pelicula, '">', $titulo, '</a></h3>
+                                        <span class="card__category">
+                                            <a href="#">', $genero, '</a>
+                                        </span>
 
-                                            <div class="card__wrap">
-                                                <ul class="card__list">
-                                                    <li> + ', $edad, '</li>
-                                                </ul>
-                                            </div>
+                                        <div class="card__wrap">
+                                            <ul class="card__list">
+                                                <li> + ', $edad, '</li>
+                                            </ul>
+                                        </div>
 
-                                            <div class="card__description">
-                                                <p>', $descripcion, '</p>
-                                            </div>
+                                        <div class="card__description">
+                                            <p>', $descripcion, '</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>';
+                        </div>
+                    </div>';
             }
             echo '</div>
-                </div>
             </div>
-            <!-- end content tabs -->
-        </div>';
+        </div>
+        <!-- end content tabs -->
+    </div>';
         }
     }
 }

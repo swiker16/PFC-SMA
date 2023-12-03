@@ -25,10 +25,17 @@ function generateNavbar()
 
     if (!empty($_SESSION["usuario"])) {
         // Usuario autenticado
-        include "header_authenticated.php";
+        if ($_SESSION["usuario"] === 'admin') {
+            // Administrador
+            include "headerAdmin.php";
+        } else {
+            // Usuario normal
+            include "header_authenticated.php";
+        }
     } else {
         // Usuario no autenticado
         include "header_unauthenticated.php";
     }
 }
+
 ?>

@@ -22,15 +22,15 @@ class Register
         return $resultado->rowCount() == 1;
     }
 
-    public function insertarUsuario($usuario, $contrasenia, $email)
+    public function insertarUsuario($name, $lastname ,$usuario, $contrasenia, $email)
     {
         $pass_cifrado = password_hash($contrasenia, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO usuarios (Nombre_usuario, Contrasena, Correo_electronico) VALUES (:user, :password, :email)";
+        $sql = "INSERT INTO usuarios (nombre, apellidos, Nombre_usuario, Contrasena, Correo_electronico) VALUES (:nombre, :lastname, :user, :password, :email)";
         $resultado = $this->conexion->prepare($sql);
         
 
-        $resultado->execute(array(":user" => $usuario, ":password" => $pass_cifrado, ":email" => $email));
+        $resultado->execute(array(":nombre"=> $name, ":lastname"=> $lastname,":user" => $usuario, ":password" => $pass_cifrado, ":email" => $email));
 
         return $resultado->rowCount() > 0;
     }
@@ -44,6 +44,7 @@ class Register
     public function error($e)
     {
         echo "Línea del error: " . $e->getLine();
+       echo  "<p>".$e->getMessage()."</p>";
     }
 
     public function __destruct()
@@ -56,10 +57,12 @@ class Register
 
 try {
     $registro_usuario = new register();
-
+    $name = $_POST["name"];
+    $lastname = $_POST["lastname"];
     $usuario_input = $_POST["user"];
     $contrasenia_input = $_POST["password"];
     $email_input = $_POST["email"];
+
 
     if ($registro_usuario->verificarUsuarioExistente($usuario_input)) {
 
@@ -67,7 +70,7 @@ try {
 
     } else {
 
-        $registro_usuario->insertarUsuario($usuario_input, $contrasenia_input, $email_input);
+        $registro_usuario->insertarUsuario($name, $lastname,$usuario_input, $contrasenia_input, $email_input);
         $registro_usuario->redireccionar("../index.php");
     }
 

@@ -8,7 +8,6 @@ ob_start();
 // Resto del código de header_unauthenticated.php
 
 ?>
-
 <header class="header">
     <div class="header__wrap">
         <div class="container">
@@ -42,18 +41,66 @@ ob_start();
                             <!-- end dropdown -->
                         </ul>
                         <!-- end header nav -->
-
                         <!-- header auth -->
                         <div class="header__auth">
-                            <a href="../views/html/FormLogin.html" class="header__sign-in">
+
+                            <a href="../views/html/FormLogin.html" class="header__sign-in mx-1">
                                 <i class="icon ion-ios-log-in"></i>
                                 <span>Iniciar Sesión</span>
                             </a>
                         </div>
-                        <a href="../views/html/FormRegister.html" class="header__sign-in">
-                            <i class="icon ion-ios-log-in"></i>
-                            <span>Registrarse</span>
-                        </a>
+                        <!-- Formulario de búsqueda -->
+                        <div class="container">
+                        <form class="d-flex position-relative" role="search">
+                            <input id="busqueda-input" class="form-control m-4" type="search" placeholder="Search" aria-label="Search">
+                            <div class="position-absolute start-0 mt-5" id="resultados-busqueda">
+                                
+                            </div>
+                        </form>
+                        </div>
+
+                        <script>
+                            // Función para manejar la búsqueda en tiempo real
+                            function buscarPeliculas() {
+                                // Obtener el valor del input de búsqueda
+                                var busqueda = document.getElementById('busqueda-input').value;
+
+                                // Realizar la solicitud AJAX al servidor
+                                var xhr = new XMLHttpRequest();
+                                xhr.onreadystatechange = function() {
+                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                        // Obtener la lista desplegable
+                                        var dropdown = document.getElementById('resultados-busqueda');
+
+                                        // Limpiar los elementos antiguos
+                                        dropdown.innerHTML = '';
+
+                                        // Obtener los resultados y agregarlos al dropdown
+                                        var resultados = xhr.responseText.split(';');
+                                        resultados.forEach(function(resultado) {
+                                            var listItem = document.createElement('li');
+                                            listItem.innerHTML = resultado;
+                                            listItem.className = 'dropdown-item';
+                                            dropdown.appendChild(listItem);
+                                        });
+
+                                        // Mostrar el dropdown si hay resultados
+                                        if (busqueda !== '' && resultados.length > 0) {
+                                            dropdown.style.display = 'block';
+                                        } else {
+                                            dropdown.style.display = 'none';
+                                        }
+                                    }
+                                };
+
+                                // Configurar y enviar la solicitud
+                                xhr.open('GET', '../includes/buscar_peliculas.php?q=' + busqueda, true);
+                                xhr.send();
+                            }
+
+                            // Escuchar los cambios en el input de búsqueda
+                            document.getElementById('busqueda-input').addEventListener('input', buscarPeliculas);
+                        </script>
                         <!-- end header auth -->
 
                         <!-- header menu btn -->

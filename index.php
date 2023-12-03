@@ -35,10 +35,8 @@ generateNavbar();
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
 	<title>Magic Cinema</title>
-	<!-- Agrega esto en el head de tu HTML -->
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-
+	
 </head>
 
 <body class="body">

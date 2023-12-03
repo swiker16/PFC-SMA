@@ -2,7 +2,7 @@
 include '../includes/navbarFunctions.php';
 generateNavbar();
 try {
-    $pdo = new PDO("mysql:host=172.19.0.2;dbname=magiccinema", "root", "root");
+    $pdo = new PDO("mysql:host=172.19.0.3;dbname=magiccinema", "root", "root");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Incluir el archivo con la lógica de promociones
