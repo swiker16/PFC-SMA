@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <form class="d-flex" role="Cerrar sesion" method="POST" action="../includes/cerrarSesion.php">
-                                        <button type="button" class="btn btn-danger" name="logout"><a href="../includes/cerrarSesion.php" style="color:#fff;">Cerrar Sesión</a></button>
+                                        <button type="submit" class="btn btn-danger" name="logout" style="color:#fff;">Cerrar Sesión</button>
                                     </form>
                                 </div>
                             </div>

@@ -3,8 +3,10 @@ include '../includes/navbarFunctions.php';
 NavbarHandler::generateNavbar();
 
 try {
-    $pdo = new PDO("mysql:host=172.18.0.4;dbname=magiccinema", "root", "root");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    include_once '../includes/config.php';
+
+    $pdo = ConnectDatabase::conectar();
 
     // Incluir el archivo con la lógica de promociones
     require_once('../includes/promociones.php');
