@@ -1,23 +1,32 @@
 <?php
-// Iniciar sesión
-session_start();
 
-// Destruir todas las variables de sesión
-$_SESSION = array();
+class SessionCloseHandler
+{
+    public static function cerrarSesion()
+    {
+        session_start();
+        
+        self::limpiarSesion();
+        
+        header("Location: ../index.php");
+        
+        exit();
+    }
 
-// Si se desea destruir la sesión completamente, borra la cookie de la sesión
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
-    );
+    private static function limpiarSesion()
+    {
+        $_SESSION = array();
+
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        session_destroy();
+    }
 }
 
-// Finalmente, destruir la sesión
-session_destroy();
-
-// Redireccionar a la página de inicio de sesión o a donde desees
-header("Location: ../index.php");
-exit();
 ?>

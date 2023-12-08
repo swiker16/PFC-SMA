@@ -1,48 +1,57 @@
 <?php
-// updatePerfil.php
-session_start();
+include_once '../includes/config.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    try {
-        include_once '../includes/config.php';
-        $conexion = ConnectDatabase::conectar();
+class UpdatePerfilHandler
+{
+    public static function actualizarPerfil()
+    {
+        session_start();
 
-        // Recupera el Usuario_ID del formulario
-        $usuarioID = $_POST['usuario_id'];
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            try {
 
-        // Verifica si se subió un nuevo archivo de imagen
-        if (!empty($_FILES['imagen']['name'])) {
-            // Lógica para manejar la subida de la nueva imagen
-            $nombreArchivo = $_FILES['imagen']['name'];
-            $tipoArchivo = $_FILES['imagen']['type'];
-            $tamanioArchivo = $_FILES['imagen']['size'];
-            $archivoTemporal = $_FILES['imagen']['tmp_name'];
+                $conexion = ConnectDatabase::conectar();
 
-            // Verifica si es una imagen
-            if (strpos($tipoArchivo, 'image') !== false) {
-                // Lee el contenido del archivo en forma de binario
-                $datosBinarios = file_get_contents($archivoTemporal);
+                $usuarioID = $_POST['usuario_id'];
 
-                // Actualiza el campo 'imagen' en la base de datos
-                $consultaActualizarImagen = $conexion->prepare("UPDATE usuarios SET imagen = :imagen WHERE Usuario_ID = :usuario_id");
-                $consultaActualizarImagen->bindParam(':imagen', $datosBinarios, PDO::PARAM_LOB);
-                $consultaActualizarImagen->bindParam(':usuario_id', $usuarioID, PDO::PARAM_INT);
-                $consultaActualizarImagen->execute();
+                if (!empty($_FILES['imagen']['name'])) {
+                    self::procesarNuevaImagen($conexion, $usuarioID);
+                } else {
+                    echo "Error: No se seleccionó un nuevo archivo de imagen.";
+                }
 
-                // Devuelve un mensaje de éxito
-                header("Location: ../views/user.php");
-            } else {
-                echo "Error: El archivo no es una imagen válida.";
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                
+            } finally {
+                $conexion = null;
             }
         } else {
-            echo "Error: No se seleccionó un nuevo archivo de imagen.";
+            echo "Error: Método no permitido.";
         }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    } finally {
-        $conexion = null;
     }
-} else {
-    echo "Error: Método no permitido.";
+
+    private static function procesarNuevaImagen($conexion, $usuarioID)
+    {
+        $nombreArchivo = $_FILES['imagen']['name'];
+        $tipoArchivo = $_FILES['imagen']['type'];
+        $tamanioArchivo = $_FILES['imagen']['size'];
+        $archivoTemporal = $_FILES['imagen']['tmp_name'];
+
+        if (strpos($tipoArchivo, 'image') !== false) {
+
+            $datosBinarios = file_get_contents($archivoTemporal);
+
+            $consultaActualizarImagen = $conexion->prepare("UPDATE usuarios SET imagen = :imagen WHERE Usuario_ID = :usuario_id");
+            $consultaActualizarImagen->bindParam(':imagen', $datosBinarios, PDO::PARAM_LOB);
+            $consultaActualizarImagen->bindParam(':usuario_id', $usuarioID, PDO::PARAM_INT);
+            $consultaActualizarImagen->execute();
+
+            header("Location: ../views/user.php");
+        } else {
+            echo "Error: El archivo no es una imagen válida.";
+        }
+    }
 }
+
 ?>

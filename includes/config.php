@@ -5,7 +5,7 @@ class ConnectDatabase{
     public static function conectar()
     {
         try {
-            $db_host = "172.19.0.3";
+            $db_host = "172.18.0.4";
             $db_nombre = "magiccinema";
             $db_usuario = "root";
             $db_pass = "root";
@@ -16,12 +16,10 @@ class ConnectDatabase{
             return $base;
 
         } catch (PDOException $e) {
-            
             echo "Error de conexión: " . $e->getMessage();
             return null;
         }
     }
 }
-
 
 ?>
