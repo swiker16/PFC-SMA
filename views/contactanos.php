@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
 include '../includes/navbarFunctions.php';
-generateNavbar();
+NavbarHandler::generateNavbar();
 
 $mensajeEnviado = false;
 
@@ -164,43 +164,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
     </script>
 
-    <footer class=" footer">
-		<div class="container">
-			<div class="row">
-
-				<!-- footer list -->
-				<div class="col-6 col-sm-4 col-md-3">
-					<h6 class="footer__title">Sobre nosotros</h6>
-					<ul class="footer__list">
-						<li><a href="html/QuienesSomos.html">Quienés somos</a></li>
-						<li><a href="#">Apoyo Institucional</a></li>
-					</ul>
-				</div>
-				<!-- end footer list -->
-
-				<!-- footer list -->
-				<div class="col-6 col-sm-4 col-md-3">
-					<h6 class="footer__title">Legal</h6>
-					<ul class="footer__list">
-						<li><a href="html/AvisLegal.html">Aviso Legal</a></li>
-						<li><a href="html/CondicionesCompra.html">Condiciones de compra</a></li>
-					</ul>
-				</div>
-				<!-- end footer list -->
-
-				<!-- footer list -->
-				<div class="col-12 col-sm-4 col-md-3">
-					<h6 class="footer__title">Contacto</h6>
-					<ul class="footer__list">
-						<li><a href="tel:+18002345678">+34 624 23 34 03</a></li>
-						<li><a href="mailto:atencionalclient@cinemmagic.com">atencionalclient@magiccinema.com</a></li>
-					</ul>
-				</div>
-				<!-- end footer list -->
-			</div>
-		</div>
-	</footer>
-	<!-- end footer -->
+    <!-- footer -->
+    <?php require_once("footer.php");?>
+    <!-- end footer -->
 
     <!-- JS -->
     <script src="../assets/js/jquery-3.3.1.min.js"></script>

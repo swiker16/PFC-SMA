@@ -1,42 +1,43 @@
 <?php
-session_start();
-
-function checkUserActivity()
+class NavbarHandler
 {
-    if (isset($_SESSION['tiempo'])) {
-        $inactivo = 300; // 300 segundos = 5 minutos (puedes ajustar este valor según tus necesidades)
-        $vida_session = time() - $_SESSION['tiempo'];
+    public static function checkUserActivity()
+    {
+        session_start();
 
-        if ($vida_session > $inactivo) {
-            session_unset();
-            session_destroy();
-            // Puedes redirigir o manejar la inactividad aquí
+        if (isset($_SESSION['tiempo'])) {
+            $inactivo = 300; // 5 minutos
+            $vida_session = time() - $_SESSION['tiempo'];
+
+            if ($vida_session > $inactivo) {
+                self::destroySession();
+            } else {
+                $_SESSION['tiempo'] = time();
+            }
         } else {
             $_SESSION['tiempo'] = time();
         }
-    } else {
-        $_SESSION['tiempo'] = time();
     }
-}
 
-function generateNavbar()
-{
-    checkUserActivity();
+    public static function generateNavbar()
+    {
+        self::checkUserActivity();
 
-    if (!empty($_SESSION["usuario"])) {
-        // Usuario autenticado
-        if ($_SESSION["usuario"] === 'admin') {
-            // Administrador
-            include "headerAdmin.php";
+        if (!empty($_SESSION["usuario"])) {
+            if ($_SESSION["usuario"] === 'admin') {
+                include "headerAdmin.php";
+            } else {
+                include "header_authenticated.php";
+            }
         } else {
-            // Usuario normal
-            include "header_authenticated.php";
+            include "header_unauthenticated.php";
         }
-        
-    } else {
-        // Usuario no autenticado
-        include "header_unauthenticated.php";
+    }
+
+    private static function destroySession()
+    {
+        session_unset();
+        session_destroy();
     }
 }
-
 ?>

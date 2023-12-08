@@ -1,7 +1,7 @@
 <?php
 
 include '../includes/navbarFunctions.php';
-generateNavbar();
+NavbarHandler::generateNavbar();
 
 
 // Redirige al usuario si no ha iniciado sesión

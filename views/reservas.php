@@ -1,6 +1,6 @@
 <?php
 include '../includes/navbarFunctions.php';
-generateNavbar();
+NavbarHandler::generateNavbar();
 
 if (empty($_SESSION["usuario"])) {
 
@@ -73,27 +73,27 @@ if (empty($_SESSION["usuario"])) {
         $conexion = ConnectDatabase::conectar();
 
         $consulta = $conexion->prepare("
-SELECT
-R.Usuario_ID,
-R.Horario_ID,
-A.numero_fila,
-A.numero_columna,
-S.Nombre_sala AS nombre_sala,
-P.titulo AS nombre_pelicula,
-H.fecha_hora_inicio
-FROM
-reservas R
-JOIN
-horarios H ON R.Horario_ID = H.Horario_ID
-JOIN
-asientos A ON R.asiento_id = A.id_asiento
-JOIN
-salas S ON H.Sala_ID = S.Sala_ID
-JOIN
-peliculas P ON H.Pelicula_ID = P.Pelicula_ID
-WHERE
-R.Usuario_ID = :usuario_id
-");
+                SELECT
+                R.Usuario_ID,
+                R.Horario_ID,
+                A.numero_fila,
+                A.numero_columna,
+                S.Nombre_sala AS nombre_sala,
+                P.titulo AS nombre_pelicula,
+                H.fecha_hora_inicio
+                FROM
+                reservas R
+                JOIN
+                horarios H ON R.Horario_ID = H.Horario_ID
+                JOIN
+                asientos A ON R.asiento_id = A.id_asiento
+                JOIN
+                salas S ON H.Sala_ID = S.Sala_ID
+                JOIN
+                peliculas P ON H.Pelicula_ID = P.Pelicula_ID
+                WHERE
+                R.Usuario_ID = :usuario_id
+                ");
 
         $consulta->bindParam(':usuario_id', $_SESSION['Usuario_ID'], PDO::PARAM_INT);
         $consulta->execute();

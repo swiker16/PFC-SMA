@@ -1,18 +1,19 @@
 <?php
 include '../includes/navbarFunctions.php';
-generateNavbar();
+NavbarHandler::generateNavbar();
+
 try {
-    $pdo = new PDO("mysql:host=172.19.0.3;dbname=magiccinema", "root", "root");
+    $pdo = new PDO("mysql:host=172.18.0.4;dbname=magiccinema", "root", "root");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Incluir el archivo con la lógica de promociones
     require_once('../includes/promociones.php');
 
     // Obtener las promociones
-    $promociones = obtenerPromociones($pdo);
+    $promociones = PromocionesHandler::obtenerPromociones($pdo);
 
     // Generar el HTML de las tarjetas
-    $tarjetasHTML = generarTarjetasHTML($promociones);
+    $tarjetasHTML = PromocionesHandler::generarTarjetasHTML($promociones);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -71,44 +72,11 @@ try {
 
     <?php echo $tarjetasHTML; ?>
     <!-- end content -->
+
     <!-- footer -->
-    <footer class=" footer">
-        <div class="container">
-            <div class="row">
-
-                <!-- footer list -->
-                <div class="col-6 col-sm-4 col-md-3">
-                    <h6 class="footer__title">Sobre nosotros</h6>
-                    <ul class="footer__list">
-                        <li><a href="html/QuienesSomos.html">Quienés somos</a></li>
-                        <li><a href="#">Apoyo Institucional</a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
-
-                <!-- footer list -->
-                <div class="col-6 col-sm-4 col-md-3">
-                    <h6 class="footer__title">Legal</h6>
-                    <ul class="footer__list">
-                        <li><a href="html/AvisLegal.html">Aviso Legal</a></li>
-                        <li><a href="html/CondicionesCompra.html">Condiciones de compra</a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
-
-                <!-- footer list -->
-                <div class="col-12 col-sm-4 col-md-3">
-                    <h6 class="footer__title">Contacto</h6>
-                    <ul class="footer__list">
-                        <li><a href="tel:+18002345678">+34 624 23 34 03</a></li>
-                        <li><a href="mailto:atencionalclient@cinemmagic.com">atencionalclient@magiccinema.com</a></li>
-                    </ul>
-                </div>
-                <!-- end footer list -->
-            </div>
-        </div>
-    </footer>
+    <?php require_once("footer.php");?>
     <!-- end footer -->
+    
     <!-- JS -->
     <script src="../assets/js/jquery-3.3.1.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>

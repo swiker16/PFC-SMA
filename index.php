@@ -1,6 +1,7 @@
 <?php 
 include 'includes/navbarFunctions.php';
-generateNavbar(); 
+NavbarHandler::generateNavbar();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,11 +44,9 @@ generateNavbar();
 
 
 	<?php
+	include_once 'includes/indexFunctions.php';
 
-
-	include 'includes/indexFunctions.php';
-
-	mostrarTopPeliculas();
+	IndexPeliculaHandler::mostrarTopPeliculas();
 
 	?>
 
@@ -179,6 +178,7 @@ generateNavbar();
 					<ul class="footer__list">
 						<li><a href="views/html/AvisLegal.html">Aviso Legal</a></li>
 						<li><a href="views/html/CondicionesCompra.html">Condiciones de compra</a></li>
+						<li><a href="views/html/politicas.html">Políticas de privacidad</a></li>
 					</ul>
 				</div>
 				<!-- end footer list -->
