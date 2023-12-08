@@ -34,7 +34,7 @@
                             </button>
                         </div>
 
-                        <div class="container">
+                        <!-- <div class="container">
                             <form class="d-flex position-relative" role="search">
                                 <input id="busqueda-input" class="form-control m-4" type="search" placeholder="Search" aria-label="Search">
                                 <div class="position-absolute start-0 mt-5" id="resultados-busqueda">
@@ -43,7 +43,7 @@
                             </form>
                         </div>
                         
-                        <script src="../assets/js/buscar_peliculas_v1.js"></script>
+                        <script src="../assets/js/buscar_peliculas_v1.js"></script> -->
 
                         <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
                             <div class="offcanvas-header">

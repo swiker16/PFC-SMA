@@ -24,14 +24,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
 
-        $mail->setFrom('no-reply@magiccinema.es', 'Nombre del Remitente');
-        $mail->addAddress('no-reply@magiccinema.es', 'Iker Francos');
-
+        // Send email to yourself
+        $mail->setFrom('no-reply@magiccinema.es', 'Magic Cinema');
+        $mail->addAddress('no-reply@magiccinema.es'); // Replace with your own email
         $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
         $mail->Subject = $asunto;
         $mail->Body = "Correo del remitente: $email <br>Mensaje: $mensaje";
-
         $mail->send();
+
+        // Send confirmation email to the user
+        $mail->clearAllRecipients();
+        $mail->addAddress($email);
+        $mail->Subject = 'Confirmación de Registro';
+        $mail->Body = 'Gracias por contactarnos. Nos pondremos en contacto contigo pronto.';
+        $mail->send();
+
         $mensajeEnviado = true;
 
     } catch (Exception $e) {
@@ -39,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -71,7 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <meta name="author" content="Dmitry Volkov">
     <title>Magic Cinema</title>
 
 </head>
@@ -151,18 +159,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
     </form>
-
-
-
-    <script>
-        <?php
-        // Si el mensaje se envió correctamente, muestra la alerta y redirecciona
-    
-        if ($mensajeEnviado) {
-            echo "alert('¡El mensaje se envió correctamente!');";
-        }
-        ?>
-    </script>
 
     <!-- footer -->
     <?php require_once("footer.php");?>

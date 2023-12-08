@@ -30,7 +30,7 @@
                         </ul>
 
                         <div class="header__auth">
-                            <form class="d-flex" role="search">
+                            <!-- <form class="d-flex" role="search">
                                 <div id="resultados-busqueda"></div>
 
                                 <form class="d-flex" role="search">
@@ -39,7 +39,7 @@
                                 
                                 <script src="../assets/js/buscar_peliculas_v2.js"></script>
 
-                            </form>
+                            </form> -->
                             <button class="btn btn-primary mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;">
                                 <?php echo $_SESSION["usuario"]; ?>
                             </button>
