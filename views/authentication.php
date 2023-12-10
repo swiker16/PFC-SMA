@@ -34,13 +34,13 @@
 </head>
 
 <body class="body">
-<?php
+    <?php
 
 
 
- if (isset($_GET["userID"])) {
-    $userID = $_GET["userID"];
-    echo '
+    if (isset($_GET["userID"])) {
+        $userID = $_GET["userID"];
+        echo '
     <div class="sign section--bg" data-bg="../assets/img/section/section.jpg">
         <div class="container">
             <div class="row">
@@ -70,12 +70,16 @@
             </div>
         </div>
     </div>';
-} else {
-    // Manejo del caso en el que el parámetro userID no está presente
-    echo "Error: ID de usuario no encontrado en la URL.";
-}
+        if ($userID == 7) {
+            header("location: ../index.php");
+            exit(); // Ensure that no further code is executed after the redirect
+        }
+    } else {
+        // Manejo del caso en el que el parámetro userID no está presente
+        echo "Error: ID de usuario no encontrado en la URL.";
+    }
 
-?>
+    ?>
 
     <!-- JS -->
     <script src="../assets/js/jquery-3.3.1.min.js"></script>
