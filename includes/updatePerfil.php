@@ -54,4 +54,7 @@ class UpdatePerfilHandler
     }
 }
 
+// Call the method to update the profile
+UpdatePerfilHandler::actualizarPerfil();
+
 ?>

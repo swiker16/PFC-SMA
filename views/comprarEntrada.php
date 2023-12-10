@@ -72,7 +72,6 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         <meta name="description" content="">
         <meta name="keywords" content="">
-        <meta name="author" content="Dmitry Volkov">
         <title>Magic Cinema - Butacas</title>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </head>
@@ -278,7 +277,7 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
                         // Modificar el enlace para incluir los parámetros
                         var enlaceComprarEntrada = document.getElementById('enlace-comprar-entrada');
-                        enlaceComprarEntrada.href = 'tipoEntrada.php?butacas=' + butacasSeleccionadas.length + '&id=' + idsButacas.join(',');
+                        enlaceComprarEntrada.href = 'tipoEntrada.php?butacas=' + butacasSeleccionadas.length + '&id=' + idsButacas.join(',') + '&idHorario=<?php echo $id_horario ?>';
                     } else {
                         comprarEntradaElement.style.display = 'none';
                     }

@@ -45,7 +45,7 @@ class InfoPeliculaHandler
             $html .= '</div>';
             $html .= '</div>';
             $html .= '<div class="col-12 col-xl-6">';
-            $html .= '<iframe width="560" height="315" src=' . $pelicula['trailer_url'] . ' frameborder="0" allowfullscreen></iframe>';
+            $html .= '<iframe width="560" height="315" src=' . $pelicula['trailer_url'] . ' frameborder="0" allowfullscreen class="container"></iframe>';
             $html .= ' </div>';
 
             return $html;

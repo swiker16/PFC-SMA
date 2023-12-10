@@ -42,7 +42,6 @@ if (empty($_SESSION["usuario"])) {
 
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <meta name="author" content="Dmitry Volkov">
     <title>Magic Cinema - Reservas</title>
 
 </head>

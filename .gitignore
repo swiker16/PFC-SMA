@@ -18,7 +18,7 @@ Thumbs.db
 *.tmp
 
 # Ignorar archivos de configuración locales (cambiar según sea necesario)
-includes/config.php
+/includes/config.php
 
 # Ignorar directorio de carga de archivos (si lo tienes)
 /uploads/
