@@ -53,7 +53,7 @@ Ya tendriamos descargado el PHPUnit y para ejecutar los tests seria lo siguiente
 
 == Project structure
 
-The microservice passbook-get has the following structure:
+El PFC tendra la siguiente estructura:
 
 ----
 pfc-sma/           # Directorio raíz del proyecto
