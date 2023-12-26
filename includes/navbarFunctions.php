@@ -6,12 +6,12 @@ class NavbarHandler
         session_start();
 
         if (isset($_SESSION['tiempo'])) {
-            $inactivo = 300; // 5 minutos
+            $inactivo = 300; 
             $vida_session = time() - $_SESSION['tiempo'];
 
             if ($vida_session > $inactivo) {
                 self::destroySession();
-                header("Location: ../index.php"); // Redirige al index
+                header("Location: ../index.php");
                 exit();
             } else {
                 $_SESSION['tiempo'] = time();
@@ -24,8 +24,6 @@ class NavbarHandler
     public static function generateNavbar()
     {
         self::checkUserActivity();
-
-
 
         if (!empty($_SESSION["usuario"])) {
             if ($_SESSION["usuario"] === 'admin') {
