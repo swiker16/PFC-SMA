@@ -57,7 +57,7 @@
                                             <a href="../views/user.php">Ver perfil</a>
                                         </div>
                                         <div class="col-12 my-2">
-                                            <a href="../views/administradores.php">Administradores</a>
+                                            <a href="../views/crud/peliculas/administrador_pelicula.php">Administradores</a>
                                         </div>
                                     </div>
                                     <form class="d-flex" role="Cerrar sesion" method="POST" action="../includes/cerrarSesion.php">

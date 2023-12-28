@@ -1,7 +1,6 @@
 <?php 
 include 'includes/navbarFunctions.php';
 NavbarHandler::generateNavbar();
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
