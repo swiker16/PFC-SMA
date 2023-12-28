@@ -1,6 +1,8 @@
 <?php
 
 class ConnectDatabase{
+    
+    public static $connection;
 
     public static function conectar()
     {
