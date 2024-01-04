@@ -1,0 +1,92 @@
+= Sistema de Gestion de Reservas de Cine
+:doctype: book
+:toc:
+:toclevels: 4
+:toc-title: Contents
+:sectnums:
+:sectnumlevels: 4
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Features
+
+=== Description
+
+Este proyecto es un sistema de gestion de reserva que te permite comprar la entrada de forma online sin esperas y sin cola.
+  
+
+
+=== Instalacion
+
+1. Deberemos de Instalar XAMPP.
+
+Lo podemos encontrar en la siguiente url.
+
+----
+https://www.apachefriends.org/download.html
+----
+
+2. Tenemos que instalar la herramienta composer para el PHPUnit.
+
+----
+https://getcomposer.org/download/
+----
+
+3. Una vez instalado en la carpeta que tengamos xampp vamos a htdocs, borramos lo de adentro y clonamos el proyecto.
+4. Una vez clonado en la terminal dentro de proyecto escribimos este comando para descargar las dependencias del PHPUnit.
+
+----
+composer require --dev phpunit/phpunit 
+----
+
+Ya tendriamos descargado el PHPUnit y para ejecutar los tests seria lo siguiente:
+
+----
+./vendor/bin/phpunit OperationsTest.php
+----
+
+== Project structure
+
+El PFC tendra la siguiente estructura:
+
+----
+pfc-sma/           # Directorio raíz del proyecto
+├── assets/             # Recursos estáticos como CSS, JavaScript, imágenes
+│   ├── css/            # Archivos CSS
+│   ├── js/             # Archivos JavaScript
+│   ├── img/            # Imágenes
+│
+├── includes/           # Archivos PHP reutilizables y funciones
+│   ├── config.php      # Archivo de configuración
+│   ├── db.php          # Conexión a la base de datos
+│   ├── functions.php   # Funciones auxiliares
+│
+├── templates/          # Plantillas de vistas
+│   ├── header.php      # Encabezado HTML
+│   ├── footer.php      # Pie de página HTML
+│
+├── views/              # Páginas específicas del sitio
+│   ├── home.php        # Página de inicio
+│   ├── products.php    # Página de productos
+│   ├── contact.php     # Página de contacto
+│
+│
+├── tests/              # Test unitarios
+│   ├── homeTests.php    # Controlador de la página de inicio
+│
+├── vendor/             # Dependencias de terceros
+│
+├── index.php           # Página de inicio del sitio
+├── about.php           # Ejemplo de una página adicional
+├── contact.php         # Ejemplo de una página adicional
+├── .gitignore          # Archivo para ignorar archivos/directorios en Git
+|
+|-- Dockerfile          # Archivo Docker para crear contenedores
+----
+

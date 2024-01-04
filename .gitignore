@@ -1,0 +1,24 @@
+# Ignorar archivos y directorios generados por el sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar directorio de dependencias de Composer
+/vendor/
+
+# Ignorar archivos de configuración de entorno
+.env
+
+# Ignorar archivos de registro y caché
+/log/
+/var/
+
+# Ignorar archivos de respaldo y temporales
+*.bak
+*.swp
+*.tmp
+
+# Ignorar archivos de configuración locales (cambiar según sea necesario)
+/includes/config.php
+
+# Ignorar directorio de carga de archivos (si lo tienes)
+/uploads/
