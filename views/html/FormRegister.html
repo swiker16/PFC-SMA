@@ -44,7 +44,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="sign__content">
-						<form action="../Register.php" method="post" class="sign__form">
+						<form action="../Register.php" method="post" class="sign__form" onsubmit="return validar()">
 							<a href="../../index.php" class="sign__logo">
 								<img src="../../assets/img/logo.png" alt="">
 							</a>
@@ -60,20 +60,24 @@
 							</div>
 
 							<div class="sign__group">
-								<input type="password" name="password" class="sign__input" placeholder="Contraseña" required>
-							</div>
-
-							<div class="sign__group">
 								<input type="email" name="email" class="sign__input" placeholder="Correo electrónico" required>
 							</div>
 
+							<div class="sign__group">
+								<input type="password" name="password" id="password" class="sign__input" placeholder="Contraseña" required>
+							</div>
+														
+							<div class="sign__group">
+								<input type="password" name="password" id="confirm_password" class="sign__input" placeholder="Confirmar Contraseña" required>
+							</div>
+
 							<div class="sign__group sign__group--checkbox">
-								<input id="check" name="check" type="checkbox" checked="checked" required>
+								<input id="check" name="check" type="checkbox" checked="checked" required >
 								<label for="check">Acepto las <a href="politicas.html">políticas de
 										privacidad</a></label>
 							</div>
 
-							<button class="sign__btn" type="submit" onclick="validarFormulario()">Regístrate ahora</button>
+							<button class="sign__btn" type="submit" onclick="validateFormChek()">Regístrate ahora</button>
 
 							<span class="sign__text">¿Ya tienes una cuenta? <a 
 								href="FormLogin.html">¡Iniciar sesión!</a></span>
@@ -84,16 +88,36 @@
 		</div>
 	</div>
 
-	<script>
-		function validarFormulario() {
-		  var checkbox = document.getElementById('check');
-	
-		  if (!checkbox.checked) {
-			alert('Debes aceptar los términos y condiciones');
-		  }
-		  
-		}
-	</script>
+<script>
+        function validateFormChek() {
+            var checkbox = document.getElementById('check');
+
+            if (!checkbox.checked) {
+                alert('Debes aceptar los términos y condiciones');
+                return false;
+            }
+        }
+        function validar(){
+
+            var password = document.getElementById("password").value;
+            var confirm_password = document.getElementById("confirm_password").value;
+
+            // Verificar si las contraseñas coinciden
+            if (password !== confirm_password) {
+                alert("Las contraseñas no coinciden");
+                return false;
+            }
+
+            // Verificar la complejidad de la contraseña
+            var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{6,20}$/;
+            if (!passwordRegex.test(password)) {
+                alert("La contraseña debe tener de 6 a 13 letras, un caracter especial y al menos un número.");
+                return false;
+            }
+
+            return true; // Permite el envío del formulario si todas las validaciones son exitosas
+        }
+    </script>
 
 	<!-- JS -->
 	<script src="../../assets/js/jquery-3.3.1.min.js"></script>

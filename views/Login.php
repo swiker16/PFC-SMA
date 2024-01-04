@@ -63,7 +63,7 @@ class login
             $mail->Host = 'smtp.hostinger.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'no-reply@magiccinema.es';
-            $mail->Password = '';
+            $mail->Password = 'MagicCinema2023*';
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
 
@@ -109,8 +109,9 @@ try {
 
         // $login_usuario->redireccionar("../index.php");
     } else {
+        echo '<script>alert("Credenciales incorrectas"); window.location.href = "../views/html/FormLogin.html";</script>';
 
-        $login_usuario->redireccionar("mensajes/credenciales_incorrectas.php");
+
     }
 } catch (Exception $e) {
     $login_usuario->error($e);

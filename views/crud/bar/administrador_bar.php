@@ -64,7 +64,7 @@ $resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 </li>
 
                                 <li class="header__nav-item">
-                                    <a href="" class="header__nav-link">Horarios</a>
+                                    <a href="../horarios/administrador_horario.php" class="header__nav-link">Horarios</a>
                                 </li>
 
                                 <li class="header__nav-item">

@@ -146,3 +146,4 @@ class BillboardHandler
             </div>';
     }
 }
+?>

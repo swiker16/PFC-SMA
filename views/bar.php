@@ -59,7 +59,7 @@ $idsButacasArray = explode(',', $idsButacas);
     <link rel="stylesheet" href="../assets/css/main.css">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../icon/favicon-32x32.png" sizes="32x32">
     <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png">
@@ -118,44 +118,43 @@ $idsButacasArray = explode(',', $idsButacas);
 
 
     </section>
+   
+    <!-- footer -->
     <footer class=" footer">
         <div class="container">
-            <div class="row">
-
-
+            <div class="row justify-content-center">
                 <!-- footer list -->
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Sobre nosotros</h6>
                     <ul class="footer__list">
-                        <li><a href="html/QuienesSomos.html">Quienés somos</a></li>
-                        <li><a href="#">Apoyo Institucional</a></li>
+                        <li><a href="QuienesSomos.php">Quienés somos</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
-
+    
                 <!-- footer list -->
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Legal</h6>
                     <ul class="footer__list">
-                        <li><a href="html/AvisLegal.html">Aviso Legal</a></li>
-                        <li><a href="html/CondicionesCompra.html">Condiciones de compra</a></li>
+                        <li><a href="AvisLegal.html">Aviso Legal</a></li>
+                        <li><a href="CondicionesCompra.php">Condiciones de compra</a></li>
+                        <li><a href="politicas.php">Políticas de privacidad</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
-
+    
                 <!-- footer list -->
                 <div class="col-12 col-sm-4 col-md-3">
                     <h6 class="footer__title">Contacto</h6>
                     <ul class="footer__list">
-                        <li><a href="tel:+18002345678">+34 624 23 34 03</a></li>
-                        <li><a href="mailto:atencionalclient@cinemmagic.com">atencionalclient@magiccinema.com</a></li>
+                        <li><a href="tel:+34624233403">+34 624 23 34 03</a></li>
+                        <li><a href="mailto:atencionalcliente@magiccinema.es">atencionalcliente@magiccinema.es</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
             </div>
         </div>
     </footer>
-
 
 
 

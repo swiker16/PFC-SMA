@@ -1,18 +1,20 @@
 <?php
 
 class ConnectDatabase{
-    
-    public static $connection;
 
     public static function conectar()
     {
         try {
-            $db_host = "172.18.0.3";
-            $db_nombre = "magiccinema";
-            $db_usuario = "root";
-            $db_pass = "root";
+            $db_host = "localhost";
+            $db_nombre = "u757869769_magiccinema";
+            $db_usuario = "u757869769_root";
+            $db_pass = "MagicCinema2023*";
+            
+            $options = [
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
+            ];
 
-            $base = new PDO("mysql:host=$db_host;dbname=$db_nombre", $db_usuario, $db_pass);
+            $base = new PDO("mysql:host=$db_host;dbname=$db_nombre", $db_usuario, $db_pass, $options);
             $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return $base;

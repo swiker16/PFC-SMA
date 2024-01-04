@@ -114,10 +114,11 @@ class InfoPeliculaHandler
     private static function obtenerHorariosPelicula($conexion, $id_pelicula)
     {
         $sql = "SELECT horarios.Horario_id, horarios.Fecha_hora_inicio, horarios.sesion, salas.Nombre_sala as sala_nombre, peliculas.titulo as nombre_pelicula
-                            FROM horarios
-                            INNER JOIN salas ON horarios.sala_id = salas.sala_id
-                            INNER JOIN peliculas ON horarios.pelicula_id = peliculas.pelicula_id
-                            WHERE horarios.pelicula_id = :id";
+            FROM horarios
+            INNER JOIN salas ON horarios.sala_id = salas.sala_id
+            INNER JOIN peliculas ON horarios.pelicula_id = peliculas.pelicula_id
+            WHERE horarios.pelicula_id = :id
+            AND horarios.Fecha_hora_inicio >= NOW()";
 
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':id', $id_pelicula, PDO::PARAM_INT);

@@ -2,11 +2,21 @@
 include_once '../../../includes/config.php';
 $pdo = ConnectDatabase::conectar();
 
-$statement = $pdo->prepare("SELECT * FROM promociones");
+// Obtener los resultados de la tabla horarios
+$statement = $pdo->prepare("SELECT * FROM horarios");
 $statement->execute();
 $resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
-?>
 
+// Obtener el total de asientos por sala
+$statementAsientos = $pdo->prepare("
+    SELECT s.Sala_ID, s.Nombre_sala, s.Capacidad_de_asientos, COUNT(a.id_asiento) AS Total_Asientos
+    FROM salas s
+    LEFT JOIN asientos a ON s.Sala_ID = a.id_sala
+    GROUP BY s.Sala_ID
+");
+$statementAsientos->execute();
+$totalAsientosPorSala = $statementAsientos->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -43,6 +53,7 @@ $resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body class="body">
+
     <header class="header">
         <div class="header__wrap">
             <div class="container">
@@ -59,11 +70,11 @@ $resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
                                 </li>
 
                                 <li class="header__nav-item">
-                                    <a href="administrador_promo.php" class="header__nav-link">Promociones</a>
+                                    <a href="../promociones/administrador_promo.php" class="header__nav-link">Promociones</a>
                                 </li>
 
                                 <li class="header__nav-item">
-                                    <a href="../horarios/administrador_horario.php" class="header__nav-link">Horarios</a>
+                                    <a href="administrador_horario.php" class="header__nav-link">Horarios</a>
                                 </li>
 
                                 <li class="header__nav-item">
@@ -98,33 +109,48 @@ $resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
 		</section>
 
     <div class="contain mt-5 mx-5">
-    <a href="form_añadir_promo.php?id=' . $bar['bar_id'] . '" class="btn btn-primary btn-sm mt-3">Añadir nueva promoción</a>
+    <a href="form_añadir_horario.php?id=' . $horario['Horario_ID'] . '" class="btn btn-primary btn-sm mt-3">Añadir nuevo Horario</a>
     <table class="table table-striped table-bordered mt-4 w-100">
         <thead class="thead-dark">
             <tr>
-                <th>Título</th>
-                <th>Descripción</th>
+                <th>Horario</th>
+                <th>Sala</th>  
+                <th>Pelicula</th>  
                 <th>Fecha</th>
-                <th>Imagen</th>
+                <th>Asientos</th>
                 <th>Acciones</th>
+
             </tr>
         </thead>
-        <tbody>
-            <?php
-                foreach ($resultados as $promos) {
+            <tbody>
+                <?php
+                foreach ($resultados as $horario) {
                     echo '<tr>';
-                    echo '<td>' . $promos['titulo'] . '</td>';
-                    echo '<td>' . $promos['descripcion'] . '</td>';
-                    echo '<td>' . date('d/m/Y', strtotime($promos['fecha'])) . '</td>';
-                    echo '<td><img src="data:image/jpeg;base64,' . base64_encode($promos['imagen']) . '" class="img-thumbnail" style="max-width: 100px;" alt="Película"></td>';
+                    echo '<td>' . $horario['Horario_ID'] . '</td>';
+                    echo '<td>' . $horario['Sala_ID'] . '</td>';
+                    echo '<td>' . $horario['Pelicula_ID'] . '</td>';
+                    echo '<td>' . $horario['Fecha_hora_inicio'] . '</td>';
+
+                    // Buscar el total de asientos por sala
+                    $totalAsientos = 0;
+                    foreach ($totalAsientosPorSala as $asientos) {
+                        if ($asientos['Sala_ID'] == $horario['Sala_ID']) {
+                            $totalAsientos = $asientos['Total_Asientos'];
+                            break;
+                        }
+                    }
+
+                    echo '<td>' . $totalAsientos . '</td>';
                     echo '<td>
-                            <a href="editar_promo.php?id=' . $promos['promociones_id'] . '" class="btn btn-warning btn-sm mt-3">Editar</a>
-                            <a href="delete_promo.php?id=' . $promos['promociones_id'] . '" class="btn btn-danger btn-sm mt-3">Eliminar</a>
+                            <a href="delete_horario.php?id=' . $horario['Horario_ID'] . '" class="btn btn-danger btn-sm mt-3">Eliminar</a>
                           </td>';
                     echo '</tr>';
                 }
-            ?>
-        </tbody>
+                                            //<a href="editar_horario.php?id=' . $horario['Horario_ID'] . '" class="btn btn-warning btn-sm mt-3">Editar</a>
+
+                ?>
+                
+            </tbody>
     </table>
     </div>
 

@@ -117,7 +117,10 @@ if (empty($_SESSION["usuario"])) {
             echo '</div>';
             echo '</div>';
         } else {
-            echo "No se encontraron resultados.";
+            echo '<div class="container">';
+            echo '<p class="card-text text-white" style ="font-family: \'Open Sans\', sans-serif;"> No se encontraron resultados.</p>';
+            echo '</div>';
+
         }
         ?>
     </section>

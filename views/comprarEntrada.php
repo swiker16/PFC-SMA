@@ -83,26 +83,24 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
             gap: 5px;
         }
 
-        .seat {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #fff;
-            background-color: #808080;
-            border: 1px solid #fff;
+
+        .occupied {
+            color: #808080;
+            /* gris */
         }
 
         .available {
-            background-color: #4CAF50;
+            color: #1d8f03;
             /* verde */
         }
 
         .selected {
-            background-color: #9cf7a7;
+            color: #9cf7a7;
             /* Cambia el color a tu preferencia */
+        }
+
+        .enlarge-icon {
+            font-size: 20px;
         }
     </style>
 </head>
@@ -193,9 +191,13 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 $clase_asiento = 'seat';
                                 if ($estado == 'Disponible') {
                                     $clase_asiento .= ' available';
+                                } elseif ($estado == 'Seleccionado') {
+                                    $clase_asiento .= ' selected';
+                                } elseif ($estado == 'Ocupado') {
+                                    $clase_asiento .= ' occupied';
                                 }
                                 $id = $idButacas[$fila][$columna];
-                                echo '<div style="cursor:default;" class="' . $clase_asiento . '" data-id="' . $id . '" onclick="seleccionarButaca(this, ' . $fila . ', ' . $columna . ', \'' . $estado . '\')">' . $fila . '-' . $columna . '</div>';
+                                echo '<i class="fa-solid fa-chair ' . $clase_asiento . ' enlarge-icon p-2" data-id="' . $id . '" onclick="seleccionarButaca(this, ' . $fila . ', ' . $columna . ', \'' . $estado . '\')"></i>';
                             }
                         }
                         ?>

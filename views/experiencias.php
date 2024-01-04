@@ -67,7 +67,7 @@ NavbarHandler::generateNavbar();
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
                     <div class="row">
-                        <p style="color: #fff; font-family: 'Open Sans', sans-serif;">Conoce todos los detalles de las salas de cine premium más exclusivas y adéntrate en los lujosos Cinesa LUXE. Maravíllate con la gran oferta de sesiones en versión original y déjate mimar por los productos de bar más selectos. Todo a tu alcance para hacer de tu visita al cine una experiencia única.</p>
+                        <p style="color: #fff; font-family: 'Open Sans', sans-serif;">Conoce todos los detalles de las salas de cine premium más exclusivas y adéntrate en los lujosos Magic Cinema LUXE. Maravíllate con la gran oferta de sesiones en versión original y déjate mimar por los productos de bar más selectos. Todo a tu alcance para hacer de tu visita al cine una experiencia única.</p>
                     </div>
                 </div>
             </div>

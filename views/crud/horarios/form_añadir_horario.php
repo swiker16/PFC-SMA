@@ -1,3 +1,18 @@
+<?php
+include_once '../../../includes/config.php';
+$pdo = ConnectDatabase::conectar();
+
+// Obtener los resultados de la tabla horarios
+$statement = $pdo->prepare("SELECT titulo FROM peliculas");
+$statement->execute();
+$resultados = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+$statement2 = $pdo->prepare("SELECT Nombre_sala FROM salas");
+$statement2->execute();
+$resultados2 = $statement2->fetchAll(PDO::FETCH_ASSOC);
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,8 +44,7 @@
 
 <meta name="description" content="">
 <meta name="keywords" content="">
-<title>Magic Cinema - Nueva película</title>
-
+<title>Magic Cinema - Nuevo Horario</title>
 </head>
     <body>
     <header class="header">
@@ -45,7 +59,7 @@
 
                             <ul class="header__nav">
                                 <li class="header__nav-item">
-                                    <a href="administrador_pelicula.php" class="header__nav-link">Peliculas</a>
+                                    <a href="../peliculas/administrador_pelicula.php" class="header__nav-link">Peliculas</a>
                                 </li>
 
                                 <li class="header__nav-item">
@@ -53,7 +67,7 @@
                                 </li>
 
                                 <li class="header__nav-item">
-                                    <a href="../horarios/administrador_horario.php" class="header__nav-link">Horarios</a>
+                                    <a href="administrador_horario.php" class="header__nav-link">Horarios</a>
                                 </li>
 
                                 <li class="header__nav-item">
@@ -81,51 +95,46 @@
     
     <div class="container mt-5 text-white">
         <h2 class="mb-3 text-black">-</h2>
-        <h2 class="mb-4">Nueva película</h2>
-        <form action="insert_pelicula.php" method="POST" enctype="multipart/form-data">
-            <div class="form-group mb-3 mt-5">
-                <label for="titulo">Título:</label>
-                <input type="text" class="form-control" name="titulo" required>
+        <h2 class="mb-4">Nuevo Horario</h2>
+        <form action="insert_horario.php" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="sala" class="form-label">Sala:</label>
+                    <select class="form-select" name="sala" required>
+        <!-- Aquí se cargarán las opciones de las salas desde la base de datos -->
+        <?php
+        foreach ($resultados2 as $sala) {
+            // Imprime cada opción en el formato correcto
+            echo "<option value=\"{$sala['Nombre_sala']}\">{$sala['Nombre_sala']}</option>";
+        }
+        ?>
+    </select>
             </div>
 
-            <div class="form-group mb-3">
-                <label for="descripcion">Descripción:</label>
-                <textarea class="form-control" name="descripcion" required rows="5"></textarea>
+            <div class="mb-3">
+                <label for="pelicula" class="form-label">Pelicula:</label>
+    <select class="form-select" name="pelicula" required>
+        <!-- Aquí se cargarán las opciones de las películas desde la base de datos -->
+        <?php
+        foreach ($resultados as $pelicula) {
+            // Imprime cada opción en el formato correcto
+            echo "<option value=\"{$pelicula['titulo']}\">{$pelicula['titulo']}</option>";
+        }
+        ?>
+    </select>            </div>
+            
+            <div class="mb-3">
+                <label for="columnas" class="form-label">Numero de columnas:</label>
+                <input type="text" class="form-control" name="columnmas" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="filas" class="form-label">Numero de filas:</label>
+                <input type="text" class="form-control" name="filas" required>
             </div>
 
-            <div class="form-group mb-3">
-                <label for="director">Director:</label>
-                <input type="text" class="form-control" name="director" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="genero">Género:</label>
-                <input type="text" class="form-control" name="genero" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="duracion">Duración:</label>
-                <input type="text" class="form-control" name="duracion" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="clasificacion">Clasificación:</label>
-                <input type="text" class="form-control" name="clasificacion" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="fecha_de_estreno">Fecha de Estreno:</label>
-                <input type="date" class="form-control" name="fecha_de_estreno">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="imagen">Imagen:</label>
-                <input type="file" class="form-control" name="imagen" accept="image/*">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="trailer_url">URL del Trailer:</label>
-                <input type="text" class="form-control" name="trailer_url" required>
+            <div class="mb-3">
+                <label for="date" class="form-label">Fecha:</label>
+                <input type="datetime-local" class="form-control" name="fecha" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar</button>

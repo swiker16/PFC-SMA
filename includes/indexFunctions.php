@@ -5,22 +5,15 @@ class IndexPeliculaHandler
 {
     public static function mostrarTopPeliculas()
     {
-        // Aquí deberías manejar la conexión a la base de datos
         $conexion = ConnectDatabase::conectar();
+        $sql = "SELECT * FROM peliculas ORDER BY pelicula_id DESC LIMIT 7";
+        $resultado = $conexion->query($sql);
 
-        if ($conexion) { // Verifica que la conexión no sea nula
-            $sql = "SELECT * FROM peliculas ORDER BY pelicula_id DESC LIMIT 7";
-            $resultado = $conexion->query($sql);
-
-            if ($resultado && $resultado->rowCount() > 0) {
-                self::mostrarTopPeliculasSection($resultado);
-            }
-        } else {
-            // Manejar el caso en que la conexión sea nula
-            echo "Error de conexión: no se pudo establecer la conexión a la base de datos.";
+        if ($resultado->rowCount() > 0) {
+            self::mostrarTopPeliculasSection($resultado);
         }
     }
-    
+
     private static function mostrarTopPeliculasSection($resultado)
     {
         ?>

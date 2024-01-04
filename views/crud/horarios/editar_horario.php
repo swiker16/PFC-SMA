@@ -1,3 +1,24 @@
+<?php
+include_once '../../../includes/config.php';
+$pdo = ConnectDatabase::conectar();
+
+$id = $titulo = $precio = $imagen = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+
+    $id = $_GET['id'];
+
+    $statement = $pdo->prepare("SELECT * FROM horarios WHERE Horario_ID= ?");
+    $statement->execute([$id]);
+    $horario = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $sala = $horario['Sala_ID'];
+    $pelicula = $horario['Pelicula_ID'];
+    $fecha = $horario['Fecha_hora_inicio'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,7 +50,7 @@
 
 <meta name="description" content="">
 <meta name="keywords" content="">
-<title>Magic Cinema - Nueva película</title>
+<title>Magic Cinema - Editar Horario</title>
 
 </head>
     <body>
@@ -45,7 +66,7 @@
 
                             <ul class="header__nav">
                                 <li class="header__nav-item">
-                                    <a href="administrador_pelicula.php" class="header__nav-link">Peliculas</a>
+                                    <a href="../peliculas/administrador_pelicula.php" class="header__nav-link">Peliculas</a>
                                 </li>
 
                                 <li class="header__nav-item">
@@ -53,7 +74,7 @@
                                 </li>
 
                                 <li class="header__nav-item">
-                                    <a href="../horarios/administrador_horario.php" class="header__nav-link">Horarios</a>
+                                    <a href="" class="header__nav-link">Horarios</a>
                                 </li>
 
                                 <li class="header__nav-item">
@@ -79,58 +100,31 @@
         </div>
     </header>
     
-    <div class="container mt-5 text-white">
-        <h2 class="mb-3 text-black">-</h2>
-        <h2 class="mb-4">Nueva película</h2>
-        <form action="insert_pelicula.php" method="POST" enctype="multipart/form-data">
-            <div class="form-group mb-3 mt-5">
-                <label for="titulo">Título:</label>
-                <input type="text" class="form-control" name="titulo" required>
-            </div>
+        <div class="container mt-5 text-white">
+            <h2 class="mb-3 text-black">-</h2>
+            <h2 class="mb-4">Editar Bar</h2>
+            <form action="update_bar.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
 
-            <div class="form-group mb-3">
-                <label for="descripcion">Descripción:</label>
-                <textarea class="form-control" name="descripcion" required rows="5"></textarea>
-            </div>
+                <div class="form-row">
+                    <div class="form-group mb-3">
+                        <label for="titulo">Sala:</label>
+                        <input type="text" class="form-control" name="titulo" value="<?php echo $sala; ?>" required>
+                    </div>
 
-            <div class="form-group mb-3">
-                <label for="director">Director:</label>
-                <input type="text" class="form-control" name="director" required>
-            </div>
+                    <div class="form-group mb-3">
+                        <label for="descripcion">Precio:</label>
+                        <textarea class="form-control" name="precio" required rows="5"><?php echo $pelicula; ?></textarea>
+                    </div>
 
-            <div class="form-group mb-3">
-                <label for="genero">Género:</label>
-                <input type="text" class="form-control" name="genero" required>
-            </div>
+                    <div class="form-group mb-3">
+                        <label for="imagen">Imagen:</label>
+                        <input type="file" class="form-control" name="imagen" accept="image/*">
+                    </div>
 
-            <div class="form-group mb-3">
-                <label for="duracion">Duración:</label>
-                <input type="text" class="form-control" name="duracion" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="clasificacion">Clasificación:</label>
-                <input type="text" class="form-control" name="clasificacion" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="fecha_de_estreno">Fecha de Estreno:</label>
-                <input type="date" class="form-control" name="fecha_de_estreno">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="imagen">Imagen:</label>
-                <input type="file" class="form-control" name="imagen" accept="image/*">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="trailer_url">URL del Trailer:</label>
-                <input type="text" class="form-control" name="trailer_url" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
-    </div>
+                <button type="submit" class="btn btn-primary mt-3 mb-3">Guardar Cambios</button>
+            </form>
+        </div>
 
     <!-- JS -->
     <script src="../../../assets/js/jquery-3.3.1.min.js"></script>
@@ -148,3 +142,11 @@
 
 </body>
 </html>
+
+<?php
+} else {
+
+    header('Location: administrador_bar.php');
+    exit();
+}
+?>

@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = 'smtp.hostinger.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'no-reply@magiccinema.es';
-        $mail->Password = '';
+        $mail->Password = 'MagicCinema2023*';
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
 
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Send confirmation email to the user
         $mail->clearAllRecipients();
         $mail->addAddress($email);
-        $mail->Subject = 'Confirmación de Registro';
+        $mail->Subject = 'Confirmación de Envio';
         $mail->Body = 'Gracias por contactarnos. Nos pondremos en contacto contigo pronto.';
         $mail->send();
 

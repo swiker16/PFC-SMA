@@ -38,15 +38,16 @@ $procesarPago = new ProcesarPago($conexion);
 $idsButacas = isset($_GET['idsButacas']) ? $_GET['idsButacas'] : '';
 $usuarioId = isset($_SESSION["Usuario_ID"]) ? $_SESSION["Usuario_ID"] : null;
 $correoUsuario = isset($_GET['correo']) ? $_GET['correo'] : '';
-$id_horario = isset($_GET['idHorario']) ? $_GET['idHorario'] : 1; // Ajusta según tus necesidades
+$id_horario = $_GET['idHorario'] ; // Ajusta según tus necesidades
 $total = isset($_GET['total']) ? floatval($_GET['total']) : 0.00;
 
 // Actualiza la tabla de usuarios y realiza la reserva
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_horario = $_GET['idHorario'] ; // Ajusta según tus necesidades
+
     $idsButacas = isset($_POST['idsButacas']) ? htmlspecialchars($_POST['idsButacas']) : '';
     $correoUsuario = isset($_POST['correo']) ? filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL) : '';
-    // ... Otros campos del formulario ...
 
     $procesarPago->actualizarButacas($idsButacas);
     $procesarPago->realizarReserva($idsButacas, $usuarioId, $correoUsuario, $id_horario);
@@ -81,7 +82,7 @@ $conexion = null;
     <link rel="stylesheet" href="../assets/css/main.css">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../icon/favicon-32x32.png" sizes="32x32">
     <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png">
@@ -141,7 +142,7 @@ $conexion = null;
                         PayPal
                     </label>
                 </div>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <form id="paymentForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                     <input type="hidden" name="idsButacas" value="<?php echo htmlspecialchars($idsButacas); ?>">
                     <input type="hidden" name="correo" value="<?php echo htmlspecialchars($correoUsuario); ?>">
@@ -162,7 +163,7 @@ $conexion = null;
                                 <label for="visaCVV" class="form-label" style="color:#fff; font-family: 'Open Sans', sans-serif;">CVV</label>
                                 <input type="text" class="form-control" id="visaCVV" placeholder="XXX">
                             </div>
-                            <button style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;" type="submit" class="btn btn-primary">Pagar con Visa</button>
+                            <button style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;" type="submit" class="btn btn-primary" onclick="validar()">Pagar con Visa</button>
                             <p class="my-3" style="color:#fff; font-family: 'Open Sans', sans-serif;">Total: <?php echo $total ?> €</p>
 
                         </div>
@@ -174,17 +175,17 @@ $conexion = null;
                             <h5 class="card-title" style="color:#fff; font-family: 'Open Sans', sans-serif;">Tarjeta de Crédito</h5>
                             <div class="mb-3">
                                 <label for="creditoNumero" class="form-label" style="color:#fff; font-family: 'Open Sans', sans-serif;">Número de Tarjeta</label>
-                                <input type="number" class="form-control" id="creditoNumero" placeholder="XXXX-XXXX-XXXX-XXXX">
+                                <input type="number" class="form-control" id="visaNumero" placeholder="XXXX-XXXX-XXXX-XXXX">
                             </div>
                             <div class="mb-3">
                                 <label for="creditoExpiracion" class="form-label" style="color:#fff; font-family: 'Open Sans', sans-serif;">Fecha de Expiración</label>
-                                <input type="text" class="form-control" id="creditoExpiracion" placeholder="MM/YY">
+                                <input type="text" class="form-control" id="visaExpiracion" placeholder="MM/YY">
                             </div>
                             <div class="mb-3">
                                 <label for="creditoCVV" class="form-label" style="color:#fff; font-family: 'Open Sans', sans-serif;">CVV</label>
-                                <input type="text" class="form-control" id="creditoCVV" placeholder="XXX">
+                                <input type="text" class="form-control" id="visaCVV" placeholder="XXX">
                             </div>
-                            <button style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;" type="submit" class="btn btn-primary">Pagar con Visa</button>
+                            <button style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;" type="submit" class="btn btn-primary" onclick="validar()">Pagar con Visa</button>
                             <p class="my-3" style="color:#fff; font-family: 'Open Sans', sans-serif;">Total: <?php echo $total ?> €</p>
                         </div>
                     </div>
@@ -194,7 +195,7 @@ $conexion = null;
                         <div class="card-body">
                             <h5 class="card-title" style="color:#fff; font-family: 'Open Sans', sans-serif;">PayPal</h5>
                             <!-- Puedes agregar el botón de PayPal aquí -->
-                            <button style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;" type="button" class="btn btn-primary" onclick="pagarConPayPal()">Pagar con PayPal</button>
+                            <button style="background: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%); border: none; color: #fff; padding: 10px 20px; border-radius: 5px;" type="button" class="btn btn-primary">Pagar con PayPal</button>
                             <p class="my-3" style="color:#fff; font-family: 'Open Sans', sans-serif;">Total: <?php echo $total ?> €</p>
 
                         </div>
@@ -223,58 +224,86 @@ $conexion = null;
             document.getElementById('paypalSection').style.display = 'block';
         }
 
-        function pagarConVisa() {
+        function validar() {
+    
+            event.preventDefault();
+ 
             var visaNumero = document.getElementById('visaNumero').value;
             var visaExpiracion = document.getElementById('visaExpiracion').value;
             var visaCVV = document.getElementById('visaCVV').value;
 
-            alert('Realizando pago con Tarjeta Visa\nNúmero: ' + visaNumero + '\nExpiración: ' + visaExpiracion + '\nCVV: ' + visaCVV);
+            // Validar el número de tarjeta
+            if (!/^\d{16}$/.test(visaNumero)) {
+                alert('El número de tarjeta debe tener 16 dígitos numéricos.');
+                return;
+            }
+
+            // Validar que el número de tarjeta contenga solo números
+            if (!/^\d+$/.test(visaNumero)) {
+                alert('El número de tarjeta debe contener solo números.');
+                return;
+            }
+
+            // Validar la fecha de expiración
+            if (!/^\d{2}\/\d{2}$/.test(visaExpiracion)) {
+                alert('El formato de la fecha de expiración debe ser MM/YY.');
+                return;
+            }
+
+            // Validar que la fecha de expiración contenga solo números
+            if (!/^\d+$/.test(visaExpiracion.replace('/', ''))) {
+                alert('La fecha de expiración debe contener solo números.');
+                return;
+            }
+
+            // Validar el CVV
+            if (!/^\d{3}$/.test(visaCVV)) {
+                alert('El CVV debe tener 3 dígitos numéricos.');
+                return;
+            }
+
+            // Validar que el CVV contenga solo números
+            if (!/^\d+$/.test(visaCVV)) {
+                alert('El CVV debe contener solo números.');
+                return;
+            }
+
+            document.getElementById('paymentForm').submit();
         }
 
-        function pagarConCredito() {
-            var creditoNumero = document.getElementById('creditoNumero').value;
-            var creditoExpiracion = document.getElementById('creditoExpiracion').value;
-            var creditoCVV = document.getElementById('creditoCVV').value;
 
-            alert('Realizando pago con Tarjeta de Crédito\nNúmero: ' + creditoNumero + '\nExpiración: ' + creditoExpiracion + '\nCVV: ' + creditoCVV);
-        }
-
-        function pagarConPayPal() {
-            // Aquí puedes agregar la lógica para redirigir al usuario a la página de PayPal
-            alert('Redirigiendo a la página de PayPal');
-        }
     </script>
+
+    <!-- footer -->
     <footer class=" footer">
         <div class="container">
-            <div class="row">
-
-
+            <div class="row justify-content-center">
                 <!-- footer list -->
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Sobre nosotros</h6>
                     <ul class="footer__list">
-                        <li><a href="html/QuienesSomos.html">Quienés somos</a></li>
-                        <li><a href="#">Apoyo Institucional</a></li>
+                        <li><a href="QuienesSomos.php">Quienés somos</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
-
+    
                 <!-- footer list -->
                 <div class="col-6 col-sm-4 col-md-3">
                     <h6 class="footer__title">Legal</h6>
                     <ul class="footer__list">
-                        <li><a href="html/AvisLegal.html">Aviso Legal</a></li>
-                        <li><a href="html/CondicionesCompra.html">Condiciones de compra</a></li>
+                        <li><a href="AvisLegal.html">Aviso Legal</a></li>
+                        <li><a href="CondicionesCompra.php">Condiciones de compra</a></li>
+                        <li><a href="politicas.php">Políticas de privacidad</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->
-
+    
                 <!-- footer list -->
                 <div class="col-12 col-sm-4 col-md-3">
                     <h6 class="footer__title">Contacto</h6>
                     <ul class="footer__list">
-                        <li><a href="tel:+18002345678">+34 624 23 34 03</a></li>
-                        <li><a href="mailto:atencionalclient@cinemmagic.com">atencionalclient@magiccinema.com</a></li>
+                        <li><a href="tel:+34624233403">+34 624 23 34 03</a></li>
+                        <li><a href="mailto:atencionalcliente@magiccinema.es">atencionalcliente@magiccinema.es</a></li>
                     </ul>
                 </div>
                 <!-- end footer list -->

@@ -52,7 +52,7 @@ class Register
             $mail->Host = 'smtp.hostinger.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'no-reply@magiccinema.es';
-            $mail->Password = '';
+            $mail->Password = 'MagicCinema2023*';
             $mail->SMTPSecure = 'ssl';
             $mail->Port = 465;
 

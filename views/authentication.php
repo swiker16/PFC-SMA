@@ -34,54 +34,53 @@
 </head>
 
 <body class="body">
-    <?php
+<?php
 
 
 
-    if (isset($_GET["userID"])) {
-        $userID = $_GET["userID"];
-        echo '
-                <div class="sign section--bg" data-bg="../assets/img/section/section.jpg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="sign__content">
-                                    <form id="verificationForm" action="../includes/code.php" method="post" class="sign__form" onsubmit="return validateForm()">
-                                        <a href="../../index.php" class="sign__logo">
-                                            <img src="../../assets/img/logo.png" alt="">
-                                        </a>
+ if (isset($_GET["userID"])) {
+    $userID = $_GET["userID"];
+    echo '
+    <div class="sign section--bg" data-bg="../assets/img/section/section.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sign__content">
+                        <form id="verificationForm" action="../includes/code.php" method="post" class="sign__form" onsubmit="return validateForm()">
+                            <a href="../../index.php" class="sign__logo">
+                                <img src="../../assets/img/logo.png" alt="">
+                            </a>
 
-                                        <h4 style="color: #fff; font-family: \'Open Sans\', sans-serif;" class="mb-5">Codigo de Verificación</h4>
+                            <h4 style="color: #fff; font-family: \'Open Sans\', sans-serif;" class="mb-5">Codigo de Verificación</h4>
 
-                                        <!-- Campo oculto para almacenar el ID de usuario -->
-                                        <input type="hidden" name="userID" value="' . htmlspecialchars($userID) . '">
+                            <!-- Campo oculto para almacenar el ID de usuario -->
+                            <input type="hidden" name="userID" value="' . htmlspecialchars($userID) . '">
 
-                                        <div class="sign__group">
-                                            <!-- Único código -->
-                                            <input type="text" id="verificationCode" name="verificationCode" class="sign__input" placeholder="Codigo de Verificación" required>
-                                        </div>
-
-                                        <button class="sign__btn" type="submit">Enviar</button>
-
-                                        <div id="countdown" style="color: #fff; font-family: \'Open Sans\', sans-serif;" class="my-4">Tiempo restante: 1:00</div>
-                                    </form>
-                                </div>
+                            <div class="sign__group">
+                                <!-- Único código -->
+                                <input type="text" id="verificationCode" name="verificationCode" class="sign__input" placeholder="Codigo de Verificación" required>
                             </div>
-                        </div>
-                    </div>
-                </div>';
 
-    if ($userID == 7) {
+                            <button class="sign__btn" type="submit">Enviar</button>
+
+                            <div id="countdown" style="color: #fff; font-family: \'Open Sans\', sans-serif;" class="my-4">Tiempo restante: 1:00</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>';
+        if ($userID == 7) {
         header("location: ../index.php");
         exit(); // Ensure that no further code is executed after the redirect
     }
-    
-    } else {
-        // Manejo del caso en el que el parámetro userID no está presente
-        echo "Error: ID de usuario no encontrado en la URL.";
-    }
+}
+else {
+    // Manejo del caso en el que el parámetro userID no está presente
+    echo "Error: ID de usuario no encontrado en la URL.";
+}
 
-    ?>
+?>
 
     <!-- JS -->
     <script src="../assets/js/jquery-3.3.1.min.js"></script>

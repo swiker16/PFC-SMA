@@ -35,6 +35,7 @@ class ProcesarPago
 
         $idsButacasArray = explode(',', $idsButacas);
         foreach ($idsButacasArray as $asientoId) {
+            echo $asientoID;
             // Obtener información sobre el asiento desde la base de datos (ajusta según tu esquema)
             $infoAsiento = $this->obtenerInfoAsiento($asientoId);
             // Realizar inserción en la tabla de reservas
@@ -48,15 +49,18 @@ class ProcesarPago
             $stmt->execute();
 
             ProcesarPago::enviarCorreo($correoUsuario, $infoAsiento);
+
         }
+        
     }
 
     private function obtenerInfoAsiento($asientoId)
     {
         // Consulta para obtener información del asiento (ajusta según tu esquema)
-        $sql = "SELECT a.*, p.titulo AS titulo_pelicula, s.nombre_sala FROM asientos a
-            INNER JOIN horarios h ON a.id_asiento = h.Horario_ID
-            INNER JOIN peliculas p ON h.Pelicula_ID = p.pelicula_id
+        $sql = "SELECT a.*, h.*, p.titulo AS titulo_pelicula, s.nombre_sala 
+            FROM asientos a
+            INNER JOIN horarios h ON a.Horario_id = h.Horario_ID
+            INNER JOIN peliculas p ON h.Pelicula_ID = p.Pelicula_ID
             INNER JOIN salas s ON h.Sala_ID = s.Sala_ID
             WHERE a.id_asiento = :asiento_id";
     
@@ -67,34 +71,36 @@ class ProcesarPago
     }
     
 
-    public function enviarCorreo($email, $infoAsiento)
-    {
-        // Configuración de PHPMailer
-        $mail = new PHPMailer(true);
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.hostinger.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'no-reply@magiccinema.es';
-            $mail->Password = '';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
+public function enviarCorreo($email, $infoAsiento)
+{
+    // Configuración de PHPMailer
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.hostinger.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'no-reply@magiccinema.es';
+        $mail->Password = 'MagicCinema2023*';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
 
-            $mail->setFrom('no-reply@magiccinema.es', 'no-reply@magiccinema.es');
-            $mail->addAddress($email);
+        $mail->setFrom('no-reply@magiccinema.es', 'no-reply@magiccinema.es');
+        $mail->addAddress($email);
 
-            $mail->isHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $mail->Subject = 'Reserva Confirmada.';
-            $mail->Body = 'Gracias por tu reserva. Aquí está la información detallada:<br><br>' .
-            'Película: ' . $infoAsiento['titulo_pelicula'] . '<br>' .
-            'Sala: ' . $infoAsiento['nombre_sala'] . '<br>' .
-            'Asiento: Fila ' . $infoAsiento['numero_fila'] . ', Columna ' . $infoAsiento['numero_columna'] . '<br>';
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+        $mail->Subject = 'Reserva Confirmada';
         
+        $body = "Gracias por tu reserva. Aquí está la información detallada:<br><br>" .
+            "Película: {$infoAsiento['titulo_pelicula']}<br>" .
+            "Sala: {$infoAsiento['nombre_sala']}<br>" .
+            "Asiento: Fila {$infoAsiento['numero_fila']}, Columna {$infoAsiento['numero_columna']}<br>";
 
-            $mail->send();
-        } catch (Exception $e) {
-            echo "Error al enviar el correo de confirmación: {$mail->ErrorInfo}";
-        }
+        $mail->Body = $body;
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Error al enviar el correo de confirmación: {$mail->ErrorInfo}";
     }
+}
 }
